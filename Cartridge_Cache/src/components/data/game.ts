@@ -1,12 +1,14 @@
-[
+import type { Game } from "../types/game";
+
+export const games: Game[] = [
     {
-        "id": "1",
+        "id": 1,
         "gameName": "Dota 2",
         "detail": "This game is not good. Worse than League of Legends",
-        "genre": "moba",
+        "genre": "Moba",
         "ratings": "1/5",
         "platform": "PC",
         "developer": "valve",
         "user": "John Doe"
     }
-]
+];
