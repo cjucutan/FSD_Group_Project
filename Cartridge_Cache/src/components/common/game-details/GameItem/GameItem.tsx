@@ -7,7 +7,7 @@ interface GameItemProps {
 
 export function GameItem({ game }: GameItemProps) {
     return (
-      <section>
+      <section className="container">
         <GameItemCard title="Game Name" data={[game.gameName]} />
         <GameItemCard title="Detail" data={[game.detail]} />
         <GameItemCard title="Genre" data={[game.genre]} />
