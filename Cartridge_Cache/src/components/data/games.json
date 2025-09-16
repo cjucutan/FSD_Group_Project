@@ -1,0 +1,13 @@
+[
+    {
+        "id": "1",
+        "gameName": "Dota 2",
+        "image": "./images/dota2.jpg",
+        "detail": "This game is not good. Worse than League of Legends",
+        "genre": "moba",
+        "ratings": "1/5",
+        "platform": "PC",
+        "developer": "valve",
+        "user": "gamer_dan"
+    }
+]
