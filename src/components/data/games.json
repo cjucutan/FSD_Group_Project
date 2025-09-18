@@ -1,0 +1,13 @@
+[
+    {
+        "id": "1",
+        "Game": "Dota 2",
+        "Information": "Dota 2 can feel frustratingly complex, with a steep learning curve, toxic players, and long matches that become exhausting if your team isn’t cooperating.",
+        "Genre": "MOBA",
+        "Rating": "1/5 Would Never play again",
+        "Platform": "PC",
+        "Developer": "Valve",
+        "User": "John Doe"
+    }
+
+]
