@@ -1,4 +1,4 @@
-import { GameList } from "../common/game-details/GameDetails/GameDetailsList"
+import { GameList } from "../common/game-details/GameDetailsList"
 
 export function HomePage() {
     return (

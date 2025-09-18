@@ -1,4 +1,4 @@
-import games from "../../../data/games.json";
+import games from "../../data/games.json";
 
 export function GameList() {
   return (
