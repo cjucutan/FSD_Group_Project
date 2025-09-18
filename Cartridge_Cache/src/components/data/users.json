@@ -4,7 +4,7 @@
     "username": "gamer_dan",
     "email": "dan@example.com",
     "avatarUrl": "https://example.com/avatars/dan.png",
-    "bio": "Lifelong gamer. Loves RPGs and indie titles.",
+    "bio": "Lifelong gamer. Loves FPS games and indie titles.",
     "location": "Toronto, Canada"
   },
   {
@@ -12,7 +12,7 @@
     "username": "pixel_queen",
     "email": "alex@example.com",
     "avatarUrl": "https://example.com/avatars/alex.png",
-    "bio": "Strategy games and pixel art are my jam.",
+    "bio": "Strategy games, MOBAS, and pixel art are my jam.",
     "location": "Berlin, Germany"
   }
 ]
