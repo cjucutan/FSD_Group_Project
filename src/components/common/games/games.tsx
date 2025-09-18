@@ -1,5 +1,5 @@
 import games from '../../data/games.json';
-import gameImage from '../../data/images/games.png';
+import gameImage from '../../data/images/games.jpg';
 
 export default function AllGames() {
     return (
