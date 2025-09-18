@@ -1,6 +1,6 @@
 function Header() {
     return (
-        <header>
+        <header className="flex justify-center text-[60px]">
             <h1>Cartridge Cache</h1>
         </header>
     )
