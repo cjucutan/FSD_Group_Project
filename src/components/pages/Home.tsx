@@ -5,11 +5,13 @@ import Header from "../common/Header/Header"
 
 export function HomePage() {
     return (
-        <>
-            <Header />
-            <Nav />
-            <GameList /> 
-            <Footer />
-        </>
+        <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 min-h-screen text-white">
+            <>
+                <Header />
+                <Nav />
+                <GameList /> 
+                <Footer />
+            </>
+        </div>
     )
 }
