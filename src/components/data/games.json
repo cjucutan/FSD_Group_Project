@@ -1,13 +1,35 @@
 [
     {
         "id": "1",
-        "Game": "Dota 2",
-        "Information": "Dota 2 can feel frustratingly complex, with a steep learning curve, toxic players, and long matches that become exhausting if your team isn’t cooperating.",
-        "Genre": "MOBA",
-        "Rating": "1/5 Would Never play again",
-        "Platform": "PC",
-        "Developer": "Valve",
-        "User": "John Doe"
+        "gameName": "Dota 2",
+        "image": "./images/dota2.jpg",
+        "detail": "This game is not good. Worse than League of Legends",
+        "genre": "moba",
+        "ratings": "1/5",
+        "platform": "PC",
+        "developer": "valve",
+        "user": "gamer_dan"
+    },
+    {
+        "id": "2",
+        "gameName": "League of Legends",
+        "image": "./images/lol.jpg",
+        "detail": "This game is good. Better than Dota 2",
+        "genre": "moba",
+        "ratings": "5/5",
+        "platform": "PC",
+        "developer": "Riot Games",
+        "user": "gamer_dan"
+    },
+    {
+        "id": "3",
+        "gameName": "Valorant",
+        "image": "./images/valorant.jpg",
+        "detail": "This game is okay. Not as good as CS:GO",
+        "genre": "FPS",
+        "ratings": "3/5",
+        "platform": "PC",
+        "developer": "Riot Games",
+        "user": "gamer_dan"
     }
-
 ]
