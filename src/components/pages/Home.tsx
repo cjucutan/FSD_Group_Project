@@ -1,5 +1,6 @@
 import { GameList } from "../common/game-details/GameDetailsList"
 import Nav  from "../common/navbar/Nav"
+import Footer from "../common/Footer/Footer"
 import Header from "../common/Header/Header"
 
 export function HomePage() {
@@ -8,6 +9,7 @@ export function HomePage() {
             <Header />
             <Nav />
             <GameList /> 
+            <Footer />
         </>
     )
 }
