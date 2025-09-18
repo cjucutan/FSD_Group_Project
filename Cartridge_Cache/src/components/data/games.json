@@ -9,5 +9,27 @@
         "platform": "PC",
         "developer": "valve",
         "user": "gamer_dan"
+    },
+    {
+        "id": "2",
+        "gameName": "League of Legends",
+        "image": "./images/lol.jpg",
+        "detail": "This game is good. Better than Dota 2",
+        "genre": "moba",
+        "ratings": "5/5",
+        "platform": "PC",
+        "developer": "Riot Games",
+        "user": "gamer_dan"
+    },
+    {
+        "id": "3",
+        "gameName": "Valorant",
+        "image": "./images/valorant.jpg",
+        "detail": "This game is okay. Not as good as CS:GO",
+        "genre": "FPS",
+        "ratings": "3/5",
+        "platform": "PC",
+        "developer": "Riot Games",
+        "user": "gamer_dan"
     }
 ]

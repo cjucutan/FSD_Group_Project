@@ -1,6 +1,5 @@
 import { games } from "../../../data/game";
-import { GameItem } from "./GameItem";
-import "./GameDetailsList.css"
+import { GameItem } from "../GameItem/GameItem";
 
 export function GameList() {
   return (

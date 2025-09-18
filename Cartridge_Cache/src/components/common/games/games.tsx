@@ -1,15 +1,19 @@
-import './games.css';
 import games from '../../data/games.json';
+import gameImage from '../../data/images/games.png';
 
 export default function AllGames() {
     return (
-        <div>
-        {Object.entries(games).map(([gameName, image]) => (
-            <div key={gameName} className="game-card">
-                <img src={image} alt={gameName} className="game-image" />
-                <h3 className="game-title">{gameName}</h3>
+        <section>
+            {games.map(({ id, gameName }) => (
+                <div key={id} className="game-card">
+                    <img src={gameImage} alt="Game cover" className="game-image" />
+                    <h3 className="game-title">{gameName}</h3>
+                </div>
+            ))}
+
+            <div className="all-games-footer">
+                <button className="load-more">See More Games</button>
             </div>
-        ))}
-        </div>
-    )
+        </section>
+    );
 }
