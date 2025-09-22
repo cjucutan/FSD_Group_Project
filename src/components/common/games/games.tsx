@@ -5,14 +5,14 @@ export default function AllGames() {
     return (
         <section>
             {games.map(({ id, gameName }) => (
-                <div key={id} className="game-card">
-                    <img src={gameImage} alt="Game cover" className="game-image" />
-                    <h3 className="game-title">{gameName}</h3>
+                <div key={id} className="flex items-center justify-space-evenly flex-col m-4s">
+                    <img src={gameImage} height= "200" width="300" alt="Game cover" className="game-image" />
+                    <h3 className="text-center font-bold text-lg">{gameName}</h3>
                 </div>
             ))}
 
-            <div className="all-games-footer">
-                <button className="load-more">See More Games</button>
+            <div>
+                <button className="flex items-center justify-space-evenly">See More Games</button>
             </div>
         </section>
     );
