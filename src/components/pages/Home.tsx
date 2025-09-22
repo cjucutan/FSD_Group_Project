@@ -1,4 +1,6 @@
 import { GameList } from "../common/game-details/GameDetailsList"
+
+import {GameFormPreview} from "../common/game-form/game-form"
 import Nav  from "../common/navbar/Nav"
 import Footer from "../common/Footer/Footer"
 import Header from "../common/Header/Header"
