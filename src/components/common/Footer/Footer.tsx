@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <footer className="absolute inset-x-0 bottom-0 h-16">
+        <footer>
             Christian Jucutan, Patrick Luke Dela Torre, Dominic Janaban, Diljot
         </footer>
     )
