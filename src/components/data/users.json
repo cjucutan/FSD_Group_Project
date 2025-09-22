@@ -1,0 +1,18 @@
+[
+  {
+    "id": "user_001",
+    "username": "gamer_dan",
+    "email": "dan@example.com",
+    "avatarUrl": "https://example.com/avatars/dan.png",
+    "bio": "Lifelong gamer. Loves FPS games and indie titles.",
+    "location": "Toronto, Canada"
+  },
+  {
+    "id": "user_002",
+    "username": "pixel_queen",
+    "email": "alex@example.com",
+    "avatarUrl": "https://example.com/avatars/alex.png",
+    "bio": "Strategy games, MOBAS, and pixel art are my jam.",
+    "location": "Berlin, Germany"
+  }
+]
