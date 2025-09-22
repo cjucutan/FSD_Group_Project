@@ -1,10 +1,11 @@
 import games from "../../data/games.json";
 
 export function GameList() {
+  const game = games[0];
+
   return (
     <section className="place-content-center p-10 grid ">
       <div className="max-w-md break-words ">
-        {games.map((game) => (
           <div className="text-center rounded-2xl border bg-white p-4 bg-linear-to-br from-sky-800 via-blue-900 to-indigo-950 text-white">
             {Object.entries(game).filter(([key]) => key !== "id").map(([detail, info]) => (
               <p key={detail}>
@@ -13,7 +14,6 @@ export function GameList() {
               </p>
             ))}
           </div>
-        ))}
       </div>
     </section>
   );
