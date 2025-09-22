@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+/* Color Palette
+- sky #075985
+- Blue #1e3a8a
+- Indigo #1e1b4b
+- Grey #111827 #1f2937 #374151
+- White #fafaf9
+*/
+
+body {
+  margin: 0;
+  padding: 0;
+}
