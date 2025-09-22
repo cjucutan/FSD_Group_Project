@@ -5,6 +5,7 @@ import Nav  from "../common/navbar/Nav"
 import Footer from "../common/Footer/Footer"
 import Header from "../common/Header/Header"
 import AllGames from "../common/games/games"
+import UserProfileSection from "../common/user-profile/user-profile"
 
 export function HomePage() {
     return (
@@ -14,6 +15,8 @@ export function HomePage() {
                 <Nav />
                 <AllGames />
                 <GameList />
+                <GameFormPreview />
+                <UserProfileSection />
                 <Footer />
             </>
         </div>
