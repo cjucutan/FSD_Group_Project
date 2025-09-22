@@ -1,5 +1,5 @@
 import data from '../../data/users.json';
-import img1 from '../../data/images/noprofile.jpg';
+import img1 from '../../data/images/noprofile.png';
 
 interface User {
     id: string;
