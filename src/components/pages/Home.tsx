@@ -6,6 +6,7 @@ import Footer from "../common/Footer/Footer"
 import Header from "../common/Header/Header"
 import AllGames from "../common/games/games"
 import UserProfileSection from "../common/user-profile/user-profile"
+import { CommunityHub } from "../common/Community_Hub/CommunityHub"
 
 export function HomePage() {
     return (
@@ -17,6 +18,7 @@ export function HomePage() {
                 <GameList />
                 <GameFormPreview />
                 <UserProfileSection />
+                <CommunityHub />
                 <Footer />
             </>
         </div>
