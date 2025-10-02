@@ -3,10 +3,15 @@ import { HomePage } from './components/pages/Home'
 import { Routes, Route } from 'react-router'
 import { Layout } from './components/common/Layouts/Layout'
 import { useState } from 'react'
+import DisplayAllGames from './components/pages/allGames'
+import type { Game } from './components/common/types/games'
+import Games from './components/data/games.json'
+import SavedGames from './components/pages/savedGames'
 
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [games, setGames] = useState<Game[]>(Games)
 
     const handleLogin = () => {
         setIsLoggedIn(true)
@@ -21,10 +26,29 @@ function App() {
                 isLoggedIn={isLoggedIn} 
                 onLogin={handleLogin} 
               />
-            }>
+            }
+          >
           <Route 
             index 
             element={<HomePage />}
+          />
+          <Route
+            path="/allGames"
+            element={
+              <DisplayAllGames
+                games={games}
+                setGames={setGames}
+              />
+            }
+          />
+          <Route
+            path="/savedGames"
+            element={
+              <SavedGames
+                games={games.filter(x => x.saved)}
+                setGames={setGames}
+              />
+            }
           />
           </Route>
         </Routes>

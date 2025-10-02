@@ -10,7 +10,7 @@ interface LayoutProps {
 
 export function Layout({ isLoggedIn, onLogin }: LayoutProps) {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 min-h-screen text-white">
             <Header />
             <Nav 
                 isLoggedIn={isLoggedIn} 

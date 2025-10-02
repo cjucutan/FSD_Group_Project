@@ -1,7 +1,7 @@
 function Header() {
     return (
         <header className="flex justify-center text-[60px]">
-            <h1>Cartridge Cache</h1>
+            <h1><a href="/">Cartridge Cache</a></h1>
         </header>
     )
 };
