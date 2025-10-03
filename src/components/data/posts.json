@@ -1,9 +1,92 @@
 [
-    {
-        "postID": "1",
-        "userName": "gamer_dan",
+  {
+    "gameID": 1,
+    "gameName": "Valorant",
+    "discussion": [
+      {
+        "postID": 1,
+        "postTitle": "Favorite Agent",
+        "userName": "ClutchKing87",
         "dateCreated": "2025-10-01",
-        "postMessage": "Man Dota 2 sucks. Whoever plays Dota 2 are those who don't know how to play any sports",
-        "likes": 1000000
-    }
+        "postMessage": "What’s your favorite agent? Personally I main Jett because mobility is king.",
+        "likes": 12
+      },
+      {
+        "postID": 2,
+        "postTitle": "Best Map Strategy",
+        "userName": "VandalVibes",
+        "dateCreated": "2025-10-02",
+        "postMessage": "What do you guys consider the best comp for each map? I think Haven needs double initiator.",
+        "likes": 8
+      },
+      {
+        "postID": 3,
+        "postTitle": "Clutch Moments",
+        "userName": "AceHunter",
+        "dateCreated": "2025-10-03",
+        "postMessage": "What’s your craziest 1v5 clutch story? I once won with just a Classic lmao.",
+        "likes": 15
+      }
+    ]
+  },
+  {
+    "gameID": 2,
+    "gameName": "League of Legends",
+    "discussion": [
+      {
+        "postID": 4,
+        "postTitle": "Jungle Tips",
+        "userName": "SmiteOrFeed",
+        "dateCreated": "2025-10-03",
+        "postMessage": "Why do my laners never ward? Like bro, I can’t gank if you’re pushed under turret.",
+        "likes": 9
+      },
+      {
+        "postID": 5,
+        "postTitle": "Favorite Champion Skins",
+        "userName": "BaronBuff",
+        "dateCreated": "2025-10-04",
+        "postMessage": "What’s your favorite skin line? PROJECT and Star Guardian go hard.",
+        "likes": 7
+      },
+      {
+        "postID": 6,
+        "postTitle": "Ranked Grind",
+        "userName": "SoloQueueDemon",
+        "dateCreated": "2025-10-05",
+        "postMessage": "Anyone else stuck in Silver despite hard carrying? I swear matchmaking hates me.",
+        "likes": 11
+      }
+    ]
+  },
+  {
+    "gameID": 3,
+    "gameName": "Dota 2",
+    "discussion": [
+      {
+        "postID": 7,
+        "postTitle": "Why Dota 2 Feels Rough",
+        "userName": "CreepBlocker",
+        "dateCreated": "2025-10-03",
+        "postMessage": "This game is brutal sometimes. One bad teamfight and it’s GG 40 minutes later.",
+        "likes": 6
+      },
+      {
+        "postID": 8,
+        "postTitle": "Favorite Hero Combos",
+        "userName": "InvokerMain",
+        "dateCreated": "2025-10-04",
+        "postMessage": "Invoker + Faceless Void chrono combo still hits hard. What’s your go-to duo?",
+        "likes": 5
+      },
+      {
+        "postID": 9,
+        "postTitle": "Patch Discussion",
+        "userName": "MidasGaming",
+        "dateCreated": "2025-10-05",
+        "postMessage": "Thoughts on the new patch? Some heroes feel busted while others fell off completely.",
+        "likes": 4
+      }
+    ]
+  }
 ]
