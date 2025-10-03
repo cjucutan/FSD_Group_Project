@@ -28,7 +28,7 @@ export function DiscussionForm({ onCreateDiscussion }: DiscussionFormProps) {
     }
   }, [title, message, user]);
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = () => {
     if (error) return;
 
     const newPost = {
@@ -50,7 +50,7 @@ export function DiscussionForm({ onCreateDiscussion }: DiscussionFormProps) {
   };
 
   return (
-    <div className="bg-grey-900 text-black p-7 rounded-xl shadow-lg w-full">
+    <div className="bg-grey-90 text-black p-7 rounded-xl shadow-lg w-full">
       <h2 className="text-2xl font-semibold mb-4 text-white">
         Create a Discussion
       </h2>
@@ -62,7 +62,7 @@ export function DiscussionForm({ onCreateDiscussion }: DiscussionFormProps) {
         <div>
             <Select 
                 name="gameName"
-                aria-label="Select Game"
+                aria-label="gamName"
                 onChange={(e) => setSelectedGame(e.target.value)}>
                 {Object.values(GameNames).map((x) => (
                     <option key={x}>{x}</option>
