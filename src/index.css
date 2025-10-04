@@ -1,12 +1,18 @@
 @import "tailwindcss";
 
-/* Color Palette
-- sky #075985
-- Blue #1e3a8a
-- Indigo #1e1b4b
-- Grey #111827 #1f2937 #374151
-- White #fafaf9
-*/
+
+@theme {
+  --color-grey-900: oklch(21% 0.034 264.665);
+  --color-grey-800: oklch(27.8% 0.033 256.848);
+  --color-grey-700: oklch(37% 0.013 285.805);
+  --color-grey-400: oklch(70.7% 0.022 261.325);
+  --color-blue-900: oklch(37.9% 0.146 265.522);
+  --color-indigo-950: oklch(25.7% 0.09 281.288);
+  --color-sky-800: oklch(44.3% 0.11 240.79);
+  --color-white: oklch(98.5% 0.001 106.423); 
+  --color-red-400: oklch(70.4% 0.191 22.216); 
+}
+
 
 body {
   margin: 0;

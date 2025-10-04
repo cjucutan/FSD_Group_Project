@@ -1,7 +1,12 @@
+import { Button } from "../../ui/Button";
+import { NavLink } from "react-router";
+
 function Header() {
     return (
         <header className="flex justify-center text-[60px]">
-            <h1><a href="/">Cartridge Cache</a></h1>
+            <NavLink to="/" end>
+                <Button>Cartridge Cache</Button>
+            </NavLink>
         </header>
     )
 };
