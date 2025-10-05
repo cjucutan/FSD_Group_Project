@@ -14,7 +14,6 @@ export function Profile(){
     function handleUserChange(e){
         setUser(u => ({...u, username: e.target.value}))
     }
-
     function handleEmailChange(e){
         setUser(u => ({...u, email: e.target.value}))
     }
@@ -26,6 +25,11 @@ export function Profile(){
     }
     function handleUpdate(){
         setShowUpdate(true);
+    }
+    function handleSaveProfile(e){
+        e.preventDefault();   
+        setShowUpdate(false);
+
     }
 
     return(
@@ -52,20 +56,31 @@ export function Profile(){
 
             {showUpdate && 
                 <form id="form" className="flex flex-col justify-center rounded-2xl border bg-white p-4 bg-linear-to-br 
-                            from-sky-500 via-blue-900 to-indigo-950 text-white max-w-md mx-auto">
+                            from-sky-950 via-blue-900 to-indigo-500 text-white max-w-md mx-auto">
                     <div className="flex flex-col justify-center">
                         <label>
-                            Username: <input type="text" placeholder={user.username} onChange={handleUserChange} className="border rounded p-1 my-2 w-full"/>
+                            Username: <input type="text" placeholder="Enter new username"value={user.username}  onChange={handleUserChange} className="border rounded p-1 my-2 w-full"/>
                         </label>
                         <label>
-                            Email: <input type="email" placeholder={user.email} onChange={handleEmailChange} className="border rounded p-1 my-2 w-full"/>
+                            Email: <input type="email" value={user.email} placeholder="Enter new email" onChange={handleEmailChange} className="border rounded p-1 my-2 w-full"/>
                         </label>
                         <label>
-                            AvatarURL: <input type="url" placeholder={user.avatarUrl} onChange={handleAvatarUrlChange} className="border rounded p-1 my-2 w-full"/>
+                            AvatarURL: <input type="url" value={user.avatarUrl} placeholder="Enter new url" onChange={handleAvatarUrlChange} className="border rounded p-1 my-2 w-full"/>
                         </label>
                         <label>
-                            Bio: <textarea placeholder={user.bio} onChange={handleBioChange} className="border rounded p-1 my-2 w-full"/>
+                            Bio: <textarea value={user.bio} placeholder="Enter new bio"onChange={handleBioChange} className="border rounded p-1 my-2 w-full"/>
                         </label>
+                        <div className="flex justify-center">
+                            <button className="flex justify-center align-center my-2 h-10 w-32 rounded-2xl 
+                                        bg-linear-to-br from-sky-950 via-blue-900 to-indigo-500 text-white
+                                        hover:bg-linear-blue-900" 
+                                        type="submit" onClick={handleSaveProfile}>
+                                            <div className="flex h-full w-full items-center justify-center 
+                                            bg-gray-900 rounded-full hover:bg-blue-500">
+                                                Save Profile
+                                            </div>
+                            </button>
+                        </div>
                     </div>
                 </form> 
             }
