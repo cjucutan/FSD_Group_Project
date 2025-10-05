@@ -53,11 +53,22 @@ export function Profile(){
             {showUpdate && 
                 <form id="form" className="flex flex-col justify-center rounded-2xl border bg-white p-4 bg-linear-to-br 
                             from-sky-500 via-blue-900 to-indigo-950 text-white max-w-md mx-auto">
-
-                </form>
-                
+                    <div className="flex flex-col justify-center">
+                        <label>
+                            Username: <input type="text" placeholder={user.username} onChange={handleUserChange} className="border rounded p-1 my-2 w-full"/>
+                        </label>
+                        <label>
+                            Email: <input type="email" placeholder={user.email} onChange={handleEmailChange} className="border rounded p-1 my-2 w-full"/>
+                        </label>
+                        <label>
+                            AvatarURL: <input type="url" placeholder={user.avatarUrl} onChange={handleAvatarUrlChange} className="border rounded p-1 my-2 w-full"/>
+                        </label>
+                        <label>
+                            Bio: <textarea placeholder={user.bio} onChange={handleBioChange} className="border rounded p-1 my-2 w-full"/>
+                        </label>
+                    </div>
+                </form> 
             }
-
         </div>
 
     )
