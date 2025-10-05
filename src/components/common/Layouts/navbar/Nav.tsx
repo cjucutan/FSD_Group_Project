@@ -17,6 +17,7 @@ function Nav({ isLoggedIn, onLogin }: NavProps) {
                 <span>
                     <a href="savedGames" className="pr-4">Saved Games </a>
                 </span>
+            </nav>
             <nav>
                 <NavLink to="/CommunityHub" className="pr-3"end>
                     Community Hub

@@ -8,6 +8,7 @@ import type { Game } from './components/common/types/games'
 import Games from './components/data/games.json'
 import SavedGames from './components/pages/savedGames'
 import { CommunityHub } from './components/common/Community_Hub/CommunityHub'
+import { Profile } from './components/common/user-profile/profile-page'
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
             }
           />
           <Route path="CommunityHub" element={<CommunityHub />} />
+          <Route path="/userProfile" element={<Profile />} />
           </Route>
         </Routes>
     )
