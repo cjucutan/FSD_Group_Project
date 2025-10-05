@@ -6,26 +6,32 @@ interface NavProps {
     onLogin: () => void;
 }
 
-function Nav({isLoggedIn, onLogin}: NavProps) {
+
+function Nav({ isLoggedIn, onLogin }: NavProps) {
     return (
         <div className="flex justify-center p-8">
+            <nav>
+                <span>
+                    <a href="allGames" className="pr-4">All Games </a>
+                </span>
+                <span>
+                    <a href="savedGames" className="pr-4">Saved Games </a>
+                </span>
             <nav>
                 <NavLink to="/CommunityHub" className="pr-3"end>
                     Community Hub
                 </NavLink>
-
                 <span>
                     <a href="gameForm" className="pr-4">Submit a Game </a>
                 </span>
 
                 <span>
-                    <a href="gameList" className="pr-4">Game List </a>
+                    <a href="gameDetails" className="pr-4">Game Details </a>
                 </span>
 
                 <span>
                     <a href="userProfile" className="pr-4">Profile </a>
                 </span>
-
                 <a onClick={() => onLogin()}>{isLoggedIn ? "Logout" : "Login / Signup"} </a>
             </nav>
         </div>
