@@ -27,10 +27,10 @@ export function Profile(){
     return(
         <div >
             <h1 className="flex justify-center text-4xl mb-4">My Profile</h1>
-            <p className="flex justify-center my-4">USERNAME: {user_1.username}</p>
-            <p className="flex justify-center my-4">EMAIL: {user_1.email}</p>
-            <p className="flex justify-center my-4">AVATARURL: {user_1.avatarUrl}</p>
-            <p className="flex justify-center my-4">BIO: {user_1.bio}</p>
+            <p className="flex justify-center my-4">USERNAME: {user.username}</p>
+            <p className="flex justify-center my-4">EMAIL: {user.email}</p>
+            <p className="flex justify-center my-4">AVATARURL: {user.avatarUrl}</p>
+            <p className="flex justify-center my-4">BIO: {user.bio}</p>
             <button onClick={() => handleUpdate()} >Update Profile</button>
 
         </div>
