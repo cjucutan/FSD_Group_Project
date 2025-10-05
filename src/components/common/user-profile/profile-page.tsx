@@ -31,7 +31,9 @@ export function Profile(){
             <p className="flex justify-center my-4">EMAIL: {user.email}</p>
             <p className="flex justify-center my-4">AVATARURL: {user.avatarUrl}</p>
             <p className="flex justify-center my-4">BIO: {user.bio}</p>
-            <button onClick={() => handleUpdate()} >Update Profile</button>
+            <div className="flex justify-center">
+                <button onClick={() => handleUpdate()} >Update Profile</button>
+            </div>
 
         </div>
     )
