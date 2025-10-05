@@ -8,6 +8,7 @@ const user_1: User = users[0];
 
 export function Profile(){
 
+    const [showUpdate, setShowUpdate] = useState(false);
     const [user, setUser] = useState(user_1);
 
     function handleUserChange(e){
@@ -22,6 +23,9 @@ export function Profile(){
     }
     function handleBioChange(e){
         setUser(u => ({...u, bio: e.target.value}))
+    }
+    function handleUpdate(){
+        setShowUpdate(true);
     }
 
     return(
@@ -46,7 +50,16 @@ export function Profile(){
                 </button>
             </div>
 
+            {showUpdate && 
+                <form id="form" className="flex flex-col justify-center rounded-2xl border bg-white p-4 bg-linear-to-br 
+                            from-sky-500 via-blue-900 to-indigo-950 text-white max-w-md mx-auto">
+
+                </form>
+                
+            }
+
         </div>
+
     )
 }
 
