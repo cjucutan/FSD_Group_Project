@@ -9,23 +9,15 @@ interface GameListProps {
 
 export default function AllGamesList({ games, setGames }: GameListProps) {
   const onGameSaved = (id: string, saved: boolean) => {
-    const data = [...games];
-    const index = data.findIndex((x) => x.id == id);
-    if (index > -1) {
-      const game = data[index];
-      game.saved = saved;
-      data.splice(index, 1, game);
-    }
-
-    setGames(data);
+    setGames((prev) => prev.map((g) => (g.id ===id ? { ...g, saved} : g)));
   };
 
   return (
     <section className="games-list">
-      {games.map((x) => (
+      {games.map((g) => (
         <AllGamesItem
-          game={x}
-          key={x.id}
+          game={g}
+          key={g.id}
           onGameSaved={onGameSaved}
         />
       ))}

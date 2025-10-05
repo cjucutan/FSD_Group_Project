@@ -8,6 +8,7 @@ interface GameProps {
 }
 
 export default function SavedGames({ games, setGames }: GameProps) {
+    const savedGames = games.filter(g => g.saved);
     const NoGamesFound = () => {
         return (
             <div className="text-center mt-20 text-white">
@@ -24,10 +25,11 @@ export default function SavedGames({ games, setGames }: GameProps) {
     }
         return (
         <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 min-h-screen text-black">
-            {games.length === 0 ? NoGamesFound() : <></>}
+            {savedGames.length === 0 ? ( <NoGamesFound />) : (
             <div className="p-16">
-                <AllGamesList games={games} setGames={setGames} />
+                <AllGamesList games={savedGames} setGames={setGames} />
             </div>
+            )}
         </div>
     );
 }

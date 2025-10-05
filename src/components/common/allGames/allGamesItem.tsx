@@ -18,10 +18,12 @@ export default function AllGamesItem({ game, onGameSaved }: allGamesItemProps) {
             {game.gameName} - {game.genre}
           </div>
           <div className="flex gap-2">
-            <Button onClick={() => onGameSaved(game.id, !game.saved)}>{game.saved ? <Star fill="orange" /> : <Star />}</Button>
+            <Button onClick={() => {console.log("Toggling save for", game.gameName, "=>", !game.saved);
+            onGameSaved(game.id, !game.saved)}}>{game.saved ? <Star fill="orange" /> : <Star />}</Button>
             <Button>
               <Share />
             </Button>
+            
           </div>
         </div>
         <div className="flex mb-4">
@@ -34,7 +36,7 @@ export default function AllGamesItem({ game, onGameSaved }: allGamesItemProps) {
 
         <div className="flex gap-4">
           <AllGamesCard
-            data={[game.gameName, game.genre, game.detail, game.platform]}
+            data={[game.genre, game.ratings, game.detail, game.platform, game.developer, game.user]}
             title={game.gameName}
           />
         </div>

@@ -11,32 +11,24 @@ interface GameProps {
 }
 
 export default function DisplayAllGames({ games, setGames }: GameProps) {
-    const [data, setData] = useState<Game[]>(games);
     const [filterOptions, setFilterOptions] = useState<string[]>([]);
-
-    const setupFilters = () => {
-        const Genre = [...Object.values(genre)].filter((filter) => games.findIndex((x) => x.genre == filter) != -1);
-        setFilterOptions(["All", ...Genre]);
-    };
+    const [filteredGames, setFilteredGames] = useState<Game[]>(games)
 
     const onFilterChange = (filterValue: string) => {
-        const data = [...games];
-        const filteredData = filterValue == "All" ? data : data.filter((x) => x.genre.includes(filterValue));
-
-        setData(filteredData);
-    };
+    setFilteredGames(filterValue === "All" ? games : games.filter((x) => x.genre.includes(filterValue)));
+  };
 
     const onSearchUpdate = (searchTerm: string) => {
-        const data = [...games];
-        const st = searchTerm.toLowerCase();
-        const filteredData = data.filter((x) => x.gameName.toLowerCase().includes(st) || x.genre.toLowerCase().includes(st));
-
-        setData(filteredData);
-    };
+    const st = searchTerm.toLowerCase();
+    setFilteredGames(games.filter((x) => x.gameName.toLowerCase().includes(st) || x.genre.toLowerCase().includes(st)));
+  };
 
     useEffect(() => {
-        setupFilters();
-    }, []);
+        console.log("games updated", games.filter(g => g.saved));
+        setFilteredGames(games);
+        const Genre = [...Object.values(genre)].filter((filter) => games.findIndex((x) => x.genre == filter) != -1);
+        setFilterOptions(["All", ...Genre]);
+    }, [games]);
 
     return (
         <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 min-h-screen text-black">
@@ -54,10 +46,10 @@ export default function DisplayAllGames({ games, setGames }: GameProps) {
                     ))}
                 </Select>
             </div>
-            <span> {data.length} games found</span>
+            <span> {games.length} games found</span>
             <AllGamesList
-                games={data}
-                setGames={setData}
+                games={filteredGames}
+                setGames={setGames}
             />
         </div>
     );
