@@ -17,16 +17,14 @@ function Nav({ isLoggedIn, onLogin }: NavProps) {
                 <span>
                     <a href="savedGames" className="pr-4">Saved Games </a>
                 </span>
+            </nav>
             <nav>
                 <NavLink to="/CommunityHub" className="pr-3"end>
                     Community Hub
                 </NavLink>
-                <span>
-                    <a href="gameForm" className="pr-4">Submit a Game </a>
-                </span>
 
                 <span>
-                    <a href="gameDetails" className="pr-4">Game Details </a>
+                    <a href="Marketplace " className="pr-4">Marketplace </a>
                 </span>
 
                 <span>
