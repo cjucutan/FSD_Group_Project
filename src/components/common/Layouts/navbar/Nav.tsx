@@ -1,7 +1,11 @@
+import { NavLink } from "react-router";
+
+
 interface NavProps {
     isLoggedIn: boolean;
     onLogin: () => void;
 }
+
 
 function Nav({ isLoggedIn, onLogin }: NavProps) {
     return (
@@ -13,6 +17,10 @@ function Nav({ isLoggedIn, onLogin }: NavProps) {
                 <span>
                     <a href="savedGames" className="pr-4">Saved Games </a>
                 </span>
+            <nav>
+                <NavLink to="/CommunityHub" className="pr-3"end>
+                    Community Hub
+                </NavLink>
                 <span>
                     <a href="gameForm" className="pr-4">Submit a Game </a>
                 </span>
@@ -24,13 +32,7 @@ function Nav({ isLoggedIn, onLogin }: NavProps) {
                 <span>
                     <a href="userProfile" className="pr-4">Profile </a>
                 </span>
-                <span>
-                    {isLoggedIn ? (
-                        <span>Welcome Back!</span>
-                    ) : (
-                        <button onClick={onLogin} className="text-blue-500 underline">Login</button>
-                    )}
-                </span>
+                <a onClick={() => onLogin()}>{isLoggedIn ? "Logout" : "Login / Signup"} </a>
             </nav>
         </div>
 

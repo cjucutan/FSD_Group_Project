@@ -7,6 +7,7 @@ import DisplayAllGames from './components/pages/allGames'
 import type { Game } from './components/common/types/games'
 import Games from './components/data/games.json'
 import SavedGames from './components/pages/savedGames'
+import { CommunityHub } from './components/common/Community_Hub/CommunityHub'
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
               />
             }
           />
+          <Route path="CommunityHub" element={<CommunityHub />} />
           </Route>
         </Routes>
     )
