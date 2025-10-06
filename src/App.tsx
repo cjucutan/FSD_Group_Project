@@ -9,10 +9,11 @@ import Games from './components/data/games.json'
 import SavedGames from './components/pages/savedGames'
 import { CommunityHub } from './components/common/Community_Hub/CommunityHub'
 import { Profile } from './components/common/user-profile/profile-page'
-
+import { CartridgeCartPage } from './components/common/marketplace/CartridgeCartPage'
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [marketSearch, setMarketSearch] = useState("");
     const [games, setGames] = useState<Game[]>(() => {
       const stored = localStorage.getItem("games");
       return stored ? JSON.parse(stored) : Games;
@@ -61,6 +62,16 @@ function App() {
           />
           <Route path="CommunityHub" element={<CommunityHub />} />
           <Route path="/userProfile" element={<Profile />} />
+          
+          <Route
+          path="marketplace"
+          element={
+            <CartridgeCartPage
+              searchQuery={marketSearch}
+              setSearchQuery={setMarketSearch}
+            />
+          }
+        />
           </Route>
         </Routes>
     )

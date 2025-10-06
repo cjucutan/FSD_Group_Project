@@ -24,7 +24,9 @@ function Nav({ isLoggedIn, onLogin }: NavProps) {
                 </NavLink>
 
                 <span>
-                    <a href="Marketplace " className="pr-4">Marketplace </a>
+                    <NavLink to="/marketplace" className="pr-4" end>
+                        Cartridge Cart
+                    </NavLink>
                 </span>
 
                 <span>
