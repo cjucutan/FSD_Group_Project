@@ -29,6 +29,11 @@ export function Profile(){
     }
     function handleSaveProfile(e){
         e.preventDefault();
+        
+        if(user.username === "" || user.email === ""){
+            alert("Username/Email cannot be empty!");
+            return;
+        }
         setShowUpdate(false);
     }
 
@@ -38,7 +43,7 @@ export function Profile(){
             <div className="flex flex-col justify-center rounded-2xl border bg-white p-4 bg-linear-to-br 
                             from-sky-500 via-blue-900 to-indigo-950 text-white max-w-md mx-auto">
                 <div className="flex items-center justify-center">
-                <img className="object-cover rounded-full aspect-square w-30 h-30"src="https://images.pexels.com/photos/3777622/pexels-photo-3777622.jpeg"alt={`${user.username}'s avatar`}/>
+                <img className="object-cover rounded-full aspect-square w-30 h-30"src={user.avatarUrl ? user.avatarUrl: img1} alt={`${user.username}'s avatar`}/>
                 </div>
                 <p className="flex justify-center my-4">USERNAME: {user.username}</p>
                 <p className="flex justify-center my-4">EMAIL: {user.email}</p>
