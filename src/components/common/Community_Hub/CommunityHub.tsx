@@ -31,9 +31,9 @@ export function CommunityHub() {
                               <Button className=" block pb-2 text-gray-400 hover:bg-white hover:text-black">{game.gameName}</Button>
                             </NavLink>
                             <NavLink to={`/CommunityHub/${game.gameID}/${discussion.postID}`} end
-                              className="block w-full text-left cursor-pointer p-2 rounded duration-300 hover:bg-white hover:text-black">
-                              <b className="text-xl">{discussion.postTitle}</b>
-                              <p className="pt-5 pb-2">{discussion.postMessage}</p>
+                            className="block w-full text-left cursor-pointer p-2 rounded duration-300 hover:bg-white hover:text-black">
+                                <b className="text-xl">{discussion.postTitle}</b>
+                                <p className="pt-5 pb-2">{discussion.postMessage}</p>
                             </NavLink>
                               <small>{discussion.dateCreated} • {discussion.likes} likes</small>
                               <small className="pl-6">{discussion.userName}</small>
