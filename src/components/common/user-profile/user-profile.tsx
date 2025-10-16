@@ -1,16 +1,8 @@
-import data from '../../../../src/components/data/users.json';
+import { userData } from '../../../../src/components/data/user_data';
 import img1 from '../../data/images/noprofile.jpg';
+import type { User } from '../types/users';
 
-interface User {
-    id: string;
-    username: string;
-    email: string;
-    avatarUrl: string;
-    bio: string;
-    location: string;
-}
-
-const users: User[] = data;
+const users: User[] = userData;
 
 export default function UserProfileSection() {
     return (

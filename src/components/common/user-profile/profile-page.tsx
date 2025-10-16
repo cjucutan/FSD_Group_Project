@@ -1,9 +1,9 @@
 import type {User} from "../types/users";
-import data from "../../data/users.json";
+import { userData } from "../../data/user_data";
 import { useState } from "react";
 import img1 from '../../data/images/noprofile.jpg';
 
-const users: User[] = data;
+const users: User[] = userData;
 
 const user_1: User = users[0];
 
