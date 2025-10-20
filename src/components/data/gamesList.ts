@@ -2,7 +2,7 @@ import type { Game } from "../common/types/games";
 import { genre } from "../common/types/genre";
 import { Platform } from "../common/types/platform";
 
-export const games: Game[] = [
+export const Games: Game[] = [
   {
     id: "1",
     gameName: "Dota 2",
@@ -49,17 +49,6 @@ export const games: Game[] = [
   },
   {
     id: "5",
-    gameName: "The Legend of Zelda: Tears of the Kingdom",
-    image: "./images/zelda_totk.jpg",
-    detail: "An expansive adventure full of creativity, exploration, and emotional storytelling.",
-    genre: genre.ADVENTURE,
-    ratings: "5/5",
-    platform: Platform.SWITCH,
-    developer: "Nintendo",
-    user: "terminalqueen",
-  },
-  {
-    id: "6",
     gameName: "Elden Ring",
     image: "./images/eldenring.jpg",
     detail: "A brutal and beautiful open-world RPG that rewards exploration and skill.",
@@ -68,6 +57,17 @@ export const games: Game[] = [
     platform: Platform.PC,
     developer: "FromSoftware",
     user: "cyberknight",
+  },
+  {
+    id: "6",
+    gameName: "The Legend of Zelda: Tears of the Kingdom",
+    image: "./images/zelda_totk.jpg",
+    detail: "An expansive adventure full of creativity, exploration, and emotional storytelling.",
+    genre: genre.ADVENTURE,
+    ratings: "5/5",
+    platform: Platform.SWITCH,
+    developer: "Nintendo",
+    user: "terminalqueen",
   },
   {
     id: "7",
