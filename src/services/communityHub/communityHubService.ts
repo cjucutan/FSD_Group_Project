@@ -1,38 +1,13 @@
 import * as discussionRepo from "../../apis/communityHub/communityHubRepo";
+import type { GameName } from "../../components/common/types/GameNames";
 import type { Post, DiscussionPost } from "../../components/common/types/posts";
 
 export function fetchAllPosts(): Post[] {
   return discussionRepo.getDiscussions();
 }
 
-export function createNewDiscussion(
-  gameName: string,
-  userName: string,
-  postTitle: string,
-  postMessage: string
-): DiscussionPost {
-  
-  const errors = validateDiscussion({ userName, postTitle, postMessage });
-  if (errors.size > 0) {
-    throw new Error(`Validation failed`);
-  }
-  
-  const newDiscussion: DiscussionPost = {
-    postID: Date.now(),
-    userName,
-    postTitle,
-    postMessage,
-    dateCreated: new Date().toLocaleDateString(),
-    likes: 0,
-  };
-  
-  const posts = discussionRepo.getDiscussions();
-  const game = posts.find(p => p.gameName === gameName);
-  if (game) {
-    game.discussion.push(newDiscussion);
-  }
-  
-  return newDiscussion;
+export async function createNewDiscussion(discussion: DiscussionPost, gameID: number, gameName: GameName) {
+  return await discussionRepo.createDiscussion(discussion, gameID, gameName);
 }
 
 export function validateDiscussion(discussion: Partial<DiscussionPost>) {
