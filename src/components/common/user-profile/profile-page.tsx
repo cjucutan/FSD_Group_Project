@@ -11,21 +11,11 @@ export function Profile(){
 
     const [showUpdate, setShowUpdate] = useState(false);
     const [user, setUser] = useState(user_1);
+    const [updatedUser, setUpdatedUser] = useState(user_1);
 
-    function handleUserChange(e){
-        setUser(u => ({...u, username: e.target.value}))
-    }
-    function handleEmailChange(e){
-        setUser(u => ({...u, email: e.target.value}))
-    }
-    function handleAvatarUrlChange(e){
-        setUser(u => ({...u, avatarUrl: e.target.value}))
-    }
-    function handleBioChange(e){
-        setUser(u => ({...u, bio: e.target.value}))
-    }
     function handleUpdate(){
         setShowUpdate(true);
+        setUpdatedUser(user);
     }
     function handleSaveProfile(e){
         e.preventDefault();
@@ -34,6 +24,7 @@ export function Profile(){
             alert("Username/Email cannot be empty!");
             return;
         }
+        setUser(updatedUser);
         setShowUpdate(false);
     }
 
@@ -67,16 +58,16 @@ export function Profile(){
                             from-sky-950 via-blue-900 to-indigo-500 text-white max-w-md mx-auto">
                     <div className="flex flex-col justify-center">
                         <label>
-                            Username: <input type="text" placeholder="Enter new username"value={user.username}  onChange={handleUserChange} className="border rounded p-1 my-2 w-full"/>
+                            Username: <input type="text" placeholder="Enter new username"value={updatedUser.username}  onChange={(e) => setUpdatedUser(u => ({...u, username: e.target.value }))} className="border rounded p-1 my-2 w-full"/>
                         </label>
                         <label>
-                            Email: <input type="email" value={user.email} placeholder="Enter new email" onChange={handleEmailChange} className="border rounded p-1 my-2 w-full"/>
+                            Email: <input type="email" value={updatedUser.email} placeholder="Enter new email" onChange={(e) =>setUpdatedUser(u => ({...u, email: e.target.value}))} className="border rounded p-1 my-2 w-full"/>
                         </label>
                         <label>
-                            AvatarURL: <input type="url" value={user.avatarUrl} placeholder="Enter new url" onChange={handleAvatarUrlChange} className="border rounded p-1 my-2 w-full"/>
+                            AvatarURL: <input type="url" value={updatedUser.avatarUrl} placeholder="Enter new url" onChange={(e) =>setUpdatedUser(u => ({...u, avatarUrl: e.target.value}))} className="border rounded p-1 my-2 w-full"/>
                         </label>
                         <label>
-                            Bio: <textarea value={user.bio} placeholder="Enter new bio"onChange={handleBioChange} className="border rounded p-1 my-2 w-full"/>
+                            Bio: <textarea value={updatedUser.bio} placeholder="Enter new bio"onChange={(e) =>setUpdatedUser(u => ({...u, bio: e.target.value}))} className="border rounded p-1 my-2 w-full"/>
                         </label>
                         <div className="flex justify-center">
                             <button className="flex justify-center align-center my-2 h-10 w-32 rounded-2xl 
@@ -93,7 +84,6 @@ export function Profile(){
                 </form> 
             }
         </div>
-
     )
 }
 
