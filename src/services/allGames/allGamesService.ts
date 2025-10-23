@@ -1,7 +1,7 @@
 import * as allGamesRepo from '../../apis/allGames/allGamesRepo';
 import type { Game } from '../../components/common/types/games';
 import { Platform } from '../../components/common/types/platform';
-import { genre } from '../../components/common/types/genre';
+import { Genre } from '../../components/common/types/genre';
 
 export async function getAllGames(): Promise<Game[]> {
     return allGamesRepo.getAllGames();
@@ -15,7 +15,7 @@ export async function getGamesByName(name: string): Promise<Game[]> {
     return allGamesRepo.getGamesByName(name);
 }
 
-export async function getGamesByGenre(genre: genre): Promise<Game[]> {
+export async function getGamesByGenre(genre: Genre): Promise<Game[]> {
     return allGamesRepo.getGamesByGenre(genre);
 }
 
@@ -31,8 +31,10 @@ export async function updateGame(game: Game){
     return allGamesRepo.updateGame(game);
 }
 
-export async function updateSavedGame(id: string, saved: boolean) {
-    return allGamesRepo.updateSavedGame(id, saved);
+export async function toggleSavedGame(game: Game) {
+    const newSaved = !game.saved
+    game.saved = newSaved;
+    return await allGamesRepo.updateSavedGame(game.id, game.saved);
 }
 
 export async function deleteGame(gameId: string): Promise<{message: string}> {
@@ -42,7 +44,7 @@ export async function deleteGame(gameId: string): Promise<{message: string}> {
 export async function validateGame(game: Game) {
     const validationErrors = new Map<string, string>();
     const validPlatforms = Object.values(Platform);
-    const validGenres = Object.values(genre);
+    const validGenres = Object.values(Genre);
 
     if(!game.gameName || game.gameName.length === 0) {
         validationErrors.set('name', 'Game Name cannot be blank');

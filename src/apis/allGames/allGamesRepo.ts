@@ -1,6 +1,6 @@
 import { Games } from '../../components/data/gamesList'
 import type { Game } from '../../components/common/types/games'
-import type { genre } from '../../components/common/types/genre';
+import type { Genre } from '../../components/common/types/genre';
 import type { Platform } from '../../components/common/types/platform';
 
 let allGames: Game[] = Games;
@@ -19,7 +19,7 @@ export function getGamesByName(name: string): Game[] {
     );
 }
 
-export function getGamesByGenre(genreFilter: genre): Game[] {
+export function getGamesByGenre(genreFilter: Genre): Game[] {
     return allGames.filter(game => 
         game.genre.toLowerCase() === genreFilter.toLowerCase()
     );
@@ -54,8 +54,10 @@ export async function updateSavedGame(id: string, saved: boolean) {
     } else {
         allGames[index].saved = saved;
     }
+    const savedIds = allGames.filter(g => g.saved).map(g => g.id);
+    localStorage.setItem("savedGames", JSON.stringify(savedIds))
 
-    return index;
+    return allGames[index];
 }
 
 export async function deleteGame(gameId: string): Promise<{message: string}> {
