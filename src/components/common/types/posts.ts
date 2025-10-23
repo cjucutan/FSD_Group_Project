@@ -6,7 +6,7 @@ export interface DiscussionPost {
   dateCreated: string;
   postMessage: string;
   postTitle: string;
-  likes: number;
+  likes?: number;
 }
 
 export interface Post {
