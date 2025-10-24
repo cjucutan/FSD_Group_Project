@@ -4,20 +4,17 @@ import AllGamesItem from "./allGamesItem";
 
 interface GameListProps {
   games: Game[];
-  setGames: React.Dispatch<React.SetStateAction<Game[]>>;
+  onGameSaved: (game: Game) => void;
 }
 
-export default function AllGamesList({ games, setGames }: GameListProps) {
-  const onGameSaved = (id: string, saved: boolean) => {
-    setGames((prev) => prev.map((g) => (g.id ===id ? { ...g, saved} : g)));
-  };
-
+export default function AllGamesList({ games, onGameSaved }: GameListProps) {
+  
   return (
     <section className="games-list">
-      {games.map((g) => (
+      {games.map(games => (
         <AllGamesItem
-          game={g}
-          key={g.id}
+          key={games.id}
+          game={games}
           onGameSaved={onGameSaved}
         />
       ))}
