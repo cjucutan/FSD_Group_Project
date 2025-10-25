@@ -1,15 +1,16 @@
-import './App.css'
-import { HomePage } from './components/pages/Home'
-import { Routes, Route } from 'react-router'
-import { Layout } from './components/common/Layouts/Layout'
-import { useEffect, useState } from 'react'
-import DisplayAllGames from './components/pages/allGames'
-import type { Game } from './components/common/types/games'
-import Games from './components/data/games.json'
-import SavedGames from './components/pages/savedGames'
-import { CommunityHub } from './components/common/Community_Hub/CommunityHub'
-import { Profile } from './components/common/user-profile/profile-page'
-import { CartridgeCartPage } from './components/common/marketplace/CartridgeCartPage'
+import './App.css';
+import { HomePage } from './components/pages/Home';
+import { Routes, Route } from 'react-router';
+import { Layout } from './components/common/Layouts/Layout';
+import { useEffect, useState } from 'react';
+import DisplayAllGames from './components/pages/allGames';
+import type { Game } from './components/common/types/games';
+import Games from './components/data/games.json';
+import SavedGames from './components/pages/savedGames';
+import { CommunityHub } from './components/common/Community_Hub/CommunityHub';
+import { Profile } from './components/common/user-profile/profile-page';
+import { ToastContainer } from "react-toastify";
+import { CartridgeCartPage } from './components/common/marketplace/CartridgeCartPage';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -28,6 +29,7 @@ function App() {
     }
 
     return (
+      <>
         <Routes>
           <Route 
             path="/" 
@@ -74,6 +76,8 @@ function App() {
         />
           </Route>
         </Routes>
+        <ToastContainer />
+      </>
     )
 }
 

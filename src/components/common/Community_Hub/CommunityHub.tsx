@@ -3,17 +3,16 @@ import { discussions } from "../../data/MockCommunityPost";
 import { Button } from "../ui/Button";
 import { DiscussionForm } from "./DiscussionForm/DiscussionForm";
 import { useState } from "react";
-import type { Post, DiscussionPost } from "../types/posts";
+import type { Post } from "../types/posts";
+
 
 const posts = discussions;
 
 export function CommunityHub() {
   const [games, setGames] = useState<Post[]>(posts);
 
-  const handleCreateDiscussion = (newPost: DiscussionPost) => {
-    const updated = [...games];
-    updated[0].discussion.push(newPost);
-    setGames(updated);
+  const handleCreateDiscussion = () => {
+    setGames([...discussions]);
   };
 
   const listItems = posts.map(game => (
