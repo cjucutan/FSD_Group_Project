@@ -1,14 +1,13 @@
 import { Link } from 'react-router';
-import type { Game } from '../common/types/games';
 import AllGamesList from '../common/allGames/allGamesList';
+import { useAllGames } from '../../hooks/useAllGames';
+import { useFilteredGames } from '../../hooks/useFilteredGames';
 
-interface GameProps {
-    games: Game[];
-    setGames: React.Dispatch<React.SetStateAction<Game[]>>;
-}
 
-export default function SavedGames({ games, setGames }: GameProps) {
-    const savedGames = games.filter(g => g.saved);
+export default function SavedGames() {
+    const { games, toggleSavedGame } = useAllGames([]);
+    const { filteredGames } = useFilteredGames(games, [], (game) => game.saved === true);
+
     const NoGamesFound = () => {
         return (
             <div className="text-center mt-20 text-white">
@@ -25,9 +24,11 @@ export default function SavedGames({ games, setGames }: GameProps) {
     }
         return (
         <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 min-h-screen text-black">
-            {savedGames.length === 0 ? ( <NoGamesFound />) : (
+            {filteredGames.length === 0 ? ( <NoGamesFound />) : (
             <div className="p-16">
-                <AllGamesList games={savedGames} setGames={setGames} />
+                <AllGamesList 
+                    games={filteredGames} 
+                    onGameSaved={toggleSavedGame} />
             </div>
             )}
         </div>
