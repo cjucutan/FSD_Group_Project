@@ -1,52 +1,36 @@
-import { useEffect, useState } from "react";
 import { Input } from "../../ui/Input";
 import { Textarea } from "../../ui/Textarea";
 import { Button } from "../../ui/Button";
 import { Select } from "../../ui/Select";
 import type { Post, DiscussionPost } from "../../types/posts";
 import { GameNames } from "../../types/GameNames";
-
-
+import { useDiscussionForm } from "../../../../hooks/useDiscussionForm";
 
 interface DiscussionFormProps {
-    onCreateDiscussion: (discussionPost: DiscussionPost) => void;
+    formMode: "create";
     games: Post[];
+    onCreateDiscussion: (discussion: DiscussionPost) => void;
 }
 
-export function DiscussionForm({ onCreateDiscussion }: DiscussionFormProps) {
-  const [error, setError] = useState<string | null>(null);
-  const [title, setTitle] = useState("");
-  const [message, setMessage] = useState("");
-  const [user, setUser] = useState("");
-  const [selectedGame, setSelectedGame] = useState("");
+export function DiscussionForm({ formMode, onCreateDiscussion }: DiscussionFormProps) {
+  const {
+    title,
+    setTitle,
+    message,
+    setMessage,
+    user,
+    setUser,
+    selectedGame,
+    setSelectedGame,
+    form,
+    onSubmitForm,
+  } = useDiscussionForm();
 
-  useEffect(() => {
-    if (title.length == 0 || message.length == 0 || user.length == 0) {
-      setError("Please fill out all fields before submitting.");
-    } else {
-      setError(null);
+  const handleSubmit = async () => {
+    const discussion = await onSubmitForm(formMode);
+    if (discussion) {
+      onCreateDiscussion(discussion);
     }
-  }, [title, message, user]);
-
-  const handleSubmit = () => {
-    if (error) return;
-
-    const newPost = {
-        gameName: selectedGame,
-        postID: Date.now(),
-        userName: user,
-        dateCreated: new Date().toLocaleDateString(),
-        postMessage: message,
-        postTitle: title,
-        likes: 0,
-    };
-
-    onCreateDiscussion(newPost);
-
-    setTitle("");
-    setMessage("");
-    setUser("");
-    setSelectedGame("");
   };
 
   return (
@@ -63,11 +47,16 @@ export function DiscussionForm({ onCreateDiscussion }: DiscussionFormProps) {
             <Select 
                 name="gameName"
                 aria-label="gamName"
+                value={selectedGame}
                 onChange={(e) => setSelectedGame(e.target.value)}>
-                {Object.values(GameNames).map((x) => (
-                    <option key={x}>{x}</option>
+                <option value="">Select a Game</option>
+                {Object.values(GameNames).map((gameName) => (
+                    <option key={gameName} value={gameName}>
+                        {gameName}
+                    </option>
                 ))}
             </Select>
+            {form.errors.has("gameName") && <span className="text-red-500 font-semibold">{form.errors.get("gameName")}</span>}
         </div>
 
         <div>
@@ -79,6 +68,7 @@ export function DiscussionForm({ onCreateDiscussion }: DiscussionFormProps) {
             onChange={(e) => setTitle(e.target.value)}
             className="w-full"
           />
+          {form.errors.has("postTitle") && <span className="text-red-500 font-semibold">{form.errors.get("postTitle")}</span>}
         </div>
 
         <div>
@@ -92,6 +82,7 @@ export function DiscussionForm({ onCreateDiscussion }: DiscussionFormProps) {
             onChange={(e) => setMessage(e.target.value)}
             className="w-full min-h-[100px]"
           />
+          {form.errors.has("postMessage") && <span className="text-red-500 font-semibold">{form.errors.get("postMessage")}</span>}
         </div>
 
         <div>
@@ -103,12 +94,12 @@ export function DiscussionForm({ onCreateDiscussion }: DiscussionFormProps) {
             onChange={(e) => setUser(e.target.value)}
             className="w-full"
           />
+          {form.errors.has("userName") && <span className="text-red-500 font-semibold">{form.errors.get("userName")}</span>}
         </div>
 
-        {error && <p className="text-red-400 text-sm">{error}</p>}
-
         <Button
-          type="submit"
+          type="button"
+          onClick={() => handleSubmit()}
           className="bg-blue-900 hover:bg-indigo-950 text-white font-semibold py-2 rounded-lg transition"
         >
           Create

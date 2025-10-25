@@ -10,7 +10,7 @@ export async function createNewDiscussion(discussion: DiscussionPost, gameID: nu
   return await discussionRepo.createDiscussion(discussion, gameID, gameName);
 }
 
-export function validateDiscussion(discussion: Partial<DiscussionPost>) {
+export function validateDiscussion(discussion: Partial<DiscussionPost>, gameName?: string) {
   const validationErrors = new Map<string, string>();
   
   if (!discussion.userName?.trim()) {
@@ -21,6 +21,9 @@ export function validateDiscussion(discussion: Partial<DiscussionPost>) {
   }
   if (!discussion.postMessage?.trim()) {
     validationErrors.set("postMessage", "Message is required");
+  }
+  if (!gameName?.trim()) {
+    validationErrors.set("gameName", "Please select a game");
   }
   
   return validationErrors;
