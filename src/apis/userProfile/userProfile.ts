@@ -30,3 +30,14 @@ export function updateUser(user: User){
     userData[foundUserIndex] = user;
     return userData[foundUserIndex];
 }
+
+export function deleteUser(user: User){
+    const foundUser = userData.findIndex((u) => u.id === user.id);
+
+    if (foundUser === -1){
+        throw new Error(`Failed to delete user with id: ${user.id}`);
+    }
+
+    const deletedUser = userData.splice(foundUser, 1);
+    return deletedUser;
+}
