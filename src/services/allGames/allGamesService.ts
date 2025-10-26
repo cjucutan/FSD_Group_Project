@@ -47,7 +47,7 @@ export async function validateGame(game: Game) {
     const validGenres = Object.values(Genre);
 
     if(!game.gameName || game.gameName.length === 0) {
-        validationErrors.set('name', 'Game Name cannot be blank');
+        validationErrors.set('gameName', 'Game Name cannot be blank');
     }
 
     if(!game.image || game.image.length === 0) {

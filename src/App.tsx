@@ -9,6 +9,9 @@ import { CommunityHub } from './components/common/Community_Hub/CommunityHub'
 import { Profile } from './components/common/user-profile/profile-page'
 import { CartridgeCartPage } from './components/common/marketplace/CartridgeCartPage'
 import { ToastContainer } from 'react-toastify';
+import AddGamePage from './components/pages/addGamePage';
+import EditGamePage from './components/pages/editGamePage';
+
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -46,6 +49,14 @@ function App() {
           <Route
             path="/savedGames"
             element={<SavedGames/>}
+          />
+          <Route
+            path="/addGames"
+            element={<AddGamePage />}
+          />
+          <Route
+            path="/games/:id/edit"
+            element={<EditGamePage />}
           />
           <Route path="CommunityHub" element={<CommunityHub />} />
           <Route path="/userProfile" element={<Profile />} />
