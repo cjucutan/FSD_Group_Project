@@ -1,15 +1,18 @@
-import { Share, Star } from "lucide-react";
+import { Edit, Star } from "lucide-react";
 import type { Game } from "../types/games";
 import AllGamesCard from "./allGamesCard";
 import { Button } from "../ui/Button";
 import image from "../../data/images/games.jpg";
+import { useNavigate } from "react-router";
 
 interface allGamesItemProps {
   game: Game;
-  onGameSaved: (id: string, saved: boolean) => void;
+  onGameSaved: (game: Game) => void;
 }
 
 export default function AllGamesItem({ game, onGameSaved }: allGamesItemProps) {
+  let navigate = useNavigate();
+  
   return (
     <section className="game-item my-4 border p-4 rounded bg-stone-100">
       <div className="flex flex-col">
@@ -18,12 +21,10 @@ export default function AllGamesItem({ game, onGameSaved }: allGamesItemProps) {
             {game.gameName} - {game.genre}
           </div>
           <div className="flex gap-2">
-            <Button onClick={() => {console.log("Toggling save for", game.gameName, "=>", !game.saved);
-            onGameSaved(game.id, !game.saved)}}>{game.saved ? <Star fill="orange" /> : <Star />}</Button>
-            <Button>
-              <Share />
+            <Button onClick={() => navigate(`/games/${game.id}/edit`)}>
+              <Edit />
             </Button>
-            
+            <Button onClick={() => onGameSaved(game)}>{game.saved ? <Star fill="orange" /> : <Star />}</Button>
           </div>
         </div>
         <div className="flex mb-4">
