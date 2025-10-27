@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export function useFormState(initialValues: Record<string, any>) {
-  const [formData, setFormData] = useState(initialValues);
+export function useFormState<T extends Record<string, any>>(initialValues: T) {
+  const [formData, setFormData] = useState<T>(initialValues);
   const [errors, setErrors] = useState<Map<string, string>>(new Map());
   const [isSubmitting, setIsSubmitting] = useState(false);
 
