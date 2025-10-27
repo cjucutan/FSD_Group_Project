@@ -1,29 +1,33 @@
 import type {User} from "../types/users";
 import { useState } from "react";
 import img1 from '../../data/images/noprofile.jpg';
-import { getUsers } from "../../../apis/userProfile/userProfile";
+import * as UserService from "../../../apis/userProfile/userProfile";
+import { useFormState } from "../../../hooks/useForm";
+import { validateUser } from "../../../services/userProfile/userProfileService";
 
-const users: User[] = getUsers();
+const users: User[] = UserService.getUsers();
 const user_1 = users[0]
 
 export function Profile(){
 
     const [showUpdate, setShowUpdate] = useState(false);
     const [user, setUser] = useState(user_1);
-    const [updatedUser, setUpdatedUser] = useState(user_1);
+    const {formData, handleChange, errors, setErrors} = useFormState(user);
 
     function handleUpdate(){
         setShowUpdate(true);
-        setUpdatedUser(user);
     }
-    function handleSaveProfile(e){
+    async function handleSaveProfile (e){
         e.preventDefault();
         
-        if(updatedUser.username === "" || updatedUser.email === ""){
-            alert("Username/Email cannot be empty!");
+        const validationErrors = await validateUser(formData);
+        setErrors(validationErrors);
+
+        if (validationErrors.size > 0){
             return;
         }
-        setUser(updatedUser);
+        
+        setUser(formData as User);
         setShowUpdate(false);
     }
 
@@ -57,16 +61,18 @@ export function Profile(){
                             from-sky-950 via-blue-900 to-indigo-500 text-white max-w-md mx-auto">
                     <div className="flex flex-col justify-center">
                         <label>
-                            Username: <input type="text" placeholder="Enter new username"value={updatedUser.username}  onChange={(e) => setUpdatedUser(u => ({...u, username: e.target.value }))} className="border rounded p-1 my-2 w-full"/>
+                            Username: <input type="text" placeholder="Enter new username"value={formData.username}  onChange={(e) => handleChange("username", e.target.value)} className="border rounded p-1 my-2 w-full"/>
+                        {errors.has("username") && <span className="text-red-500 font-semibold">{errors.get("username")}</span>}
                         </label>
                         <label>
-                            Email: <input type="email" value={updatedUser.email} placeholder="Enter new email" onChange={(e) =>setUpdatedUser(u => ({...u, email: e.target.value}))} className="border rounded p-1 my-2 w-full"/>
+                            Email: <input type="email" value={formData.email} placeholder="Enter new email" onChange={(e) => handleChange("email", e.target.value)} className="border rounded p-1 my-2 w-full"/>
+                        {errors.has("email") && <span className="text-red-500 font-semibold">{errors.get("email")}</span>}
                         </label>
                         <label>
-                            AvatarURL: <input type="url" value={updatedUser.avatarUrl} placeholder="Enter new url" onChange={(e) =>setUpdatedUser(u => ({...u, avatarUrl: e.target.value}))} className="border rounded p-1 my-2 w-full"/>
+                            AvatarURL: <input type="url" value={formData.avatarUrl} placeholder="Enter new url" onChange={(e) => handleChange("avatarUrl", e.target.value)} className="border rounded p-1 my-2 w-full"/>
                         </label>
                         <label>
-                            Bio: <textarea value={updatedUser.bio} placeholder="Enter new bio"onChange={(e) =>setUpdatedUser(u => ({...u, bio: e.target.value}))} className="border rounded p-1 my-2 w-full"/>
+                            Bio: <textarea value={formData.bio} placeholder="Enter new bio" onChange={(e) => handleChange("bio", e.target.value)} className="border rounded p-1 my-2 w-full"/>
                         </label>
                         <div className="flex justify-center">
                             <button className="flex justify-center align-center my-2 h-10 w-32 rounded-2xl 
