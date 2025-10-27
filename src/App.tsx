@@ -1,33 +1,28 @@
 import './App.css'
 import { HomePage } from './components/pages/Home'
-import { Routes, Route } from 'react-router'
+import { BrowserRouter, Routes, Route } from 'react-router'
 import { Layout } from './components/common/Layouts/Layout'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import DisplayAllGames from './components/pages/allGames'
-import type { Game } from './components/common/types/games'
-import Games from './components/data/games.json'
 import SavedGames from './components/pages/savedGames'
 import { CommunityHub } from './components/common/Community_Hub/CommunityHub'
 import { Profile } from './components/common/user-profile/profile-page'
 import { CartridgeCartPage } from './components/common/marketplace/CartridgeCartPage'
+import { ToastContainer } from 'react-toastify';
+import AddGamePage from './components/pages/addGamePage';
+import EditGamePage from './components/pages/editGamePage';
+
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [marketSearch, setMarketSearch] = useState("");
-    const [games, setGames] = useState<Game[]>(() => {
-      const stored = localStorage.getItem("games");
-      return stored ? JSON.parse(stored) : Games;
-    });
-
-    useEffect(() => {
-      localStorage.setItem("games", JSON.stringify(games));
-    }, [games]);
 
     const handleLogin = () => {
         setIsLoggedIn(true)
     }
 
     return (
+      <BrowserRouter>
         <Routes>
           <Route 
             path="/" 
@@ -46,19 +41,22 @@ function App() {
             path="/allGames"
             element={
               <DisplayAllGames
-                games={games}
-                setGames={setGames}
+                gameDependencies={[]}
+                gameFilterFn={null}
               />
             }
           />
           <Route
             path="/savedGames"
-            element={
-              <SavedGames
-                games={games}
-                setGames={setGames}
-              />
-            }
+            element={<SavedGames/>}
+          />
+          <Route
+            path="/addGames"
+            element={<AddGamePage />}
+          />
+          <Route
+            path="/games/:id/edit"
+            element={<EditGamePage />}
           />
           <Route path="CommunityHub" element={<CommunityHub />} />
           <Route path="/userProfile" element={<Profile />} />
@@ -74,6 +72,8 @@ function App() {
         />
           </Route>
         </Routes>
+        <ToastContainer />
+      </BrowserRouter>
     )
 }
 
