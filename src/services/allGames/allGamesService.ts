@@ -46,15 +46,15 @@ export async function validateGame(game: Game) {
     const validPlatforms = Object.values(Platform);
     const validGenres = Object.values(Genre);
 
-    if(!game.gameName || game.gameName.length === 0) {
+    if(!game.gameName?.trim()) {
         validationErrors.set('gameName', 'Game Name cannot be blank');
     }
 
-    if(!game.image || game.image.length === 0) {
+    if(!game.image?.trim()) {
         validationErrors.set('image', 'Game Image cannot be blank');
     }
 
-    if(!game.detail || game.detail.length === 0) {
+    if(!game.detail?.trim()) {
         validationErrors.set('detail', 'Game Detail cannot be blank');
     }
 
@@ -62,7 +62,7 @@ export async function validateGame(game: Game) {
         validationErrors.set('genre', 'Invalid Genre');
     }
 
-    if(!game.ratings || game.ratings.length === 0) {
+    if(!game.ratings?.trim()) {
         validationErrors.set('ratings', 'Game Ratings cannot be blank');
     }
 
@@ -70,11 +70,11 @@ export async function validateGame(game: Game) {
         validationErrors.set('platform', 'Invalid Platform');
     }
 
-    if(!game.developer || game.developer.length === 0) {
+    if(!game.developer?.trim()) {
         validationErrors.set('developer', 'Game Developer cannot be blank');
     }
 
-    if(!game.user || game.user.length === 0) {
+    if(!game.user?.trim()) {
         validationErrors.set('user', 'Game User cannot be blank');
     }
 

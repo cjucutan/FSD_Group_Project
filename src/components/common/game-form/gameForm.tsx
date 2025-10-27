@@ -22,8 +22,8 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting }: P
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
-                {errors.get("name") && (
-                    <span className="text-red-400 text-sm">{errors.get("name")}</span>
+                {errors.has("gameName") && (
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("name")}</span>
                 )}
             </div>
 
@@ -36,8 +36,8 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting }: P
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
-                {errors.get("image") && (
-                    <span className="text-red-400 text-sm">{errors.get("image")}</span>
+                {errors.has("image") && (
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("image")}</span>
                 )}
             </div>
 
@@ -50,8 +50,8 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting }: P
                     rows={3}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
-                {errors.get("detail") && (
-                    <span className="text-red-400 text-sm">{errors.get("detail")}</span>
+                {errors.has("detail") && (
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("detail")}</span>
                 )}
             </div>
 
@@ -67,8 +67,8 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting }: P
                         <option key={g} value={g}>{g}</option>
                     ))}
                 </select>
-                {errors.get("genre") && (
-                    <span className="text-red-400 text-sm">{errors.get("genre")}</span>
+                {errors.has("genre") && (
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("genre")}</span>
                 )}
             </div>
 
@@ -81,8 +81,8 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting }: P
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
-                {errors.get("ratings") && (
-                    <span className="text-red-400 text-sm">{errors.get("ratings")}</span>
+                {errors.has("ratings") && (
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("ratings")}</span>
                 )}
             </div>
 
@@ -98,8 +98,8 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting }: P
                         <option key={p} value={p}>{p}</option>
                     ))}
                 </select>
-                {errors.get("platform") && (
-                    <span className="text-red-400 text-sm">{errors.get("platform")}</span>
+                {errors.has("platform") && (
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("platform")}</span>
                 )}
             </div>
 
@@ -112,8 +112,8 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting }: P
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
-                {errors.get("developer") && (
-                    <span className="text-red-400 text-sm">{errors.get("developer")}</span>
+                {errors.has("developer") && (
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("developer")}</span>
                 )}
             </div>
 
@@ -126,8 +126,8 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting }: P
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
-                {errors.get("user") && (
-                    <span className="text-red-400 text-sm">{errors.get("user")}</span>
+                {errors.has("user") && (
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("user")}</span>
                 )}
             </div>
 
