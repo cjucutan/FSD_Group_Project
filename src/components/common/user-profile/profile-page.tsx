@@ -1,11 +1,10 @@
 import type {User} from "../types/users";
-import { userData } from "../../data/user_data";
 import { useState } from "react";
 import img1 from '../../data/images/noprofile.jpg';
+import { getUsers } from "../../../apis/userProfile/userProfile";
 
-const users: User[] = userData;
-
-const user_1: User = users[0];
+const users: User[] = getUsers();
+const user_1 = users[0]
 
 export function Profile(){
 
@@ -20,7 +19,7 @@ export function Profile(){
     function handleSaveProfile(e){
         e.preventDefault();
         
-        if(user.username === "" || user.email === ""){
+        if(updatedUser.username === "" || updatedUser.email === ""){
             alert("Username/Email cannot be empty!");
             return;
         }

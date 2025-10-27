@@ -5,7 +5,7 @@ export const userData: User[] = [
     id: "1",
     username: "gamer_dan",
     email: "dan@example.com",
-    avatarUrl: "https://example.com/avatars/dan.png",
+    avatarUrl: "https://randomuser.me/api/portraits/men/59.jpg",
     bio: "Lifelong gamer. Loves FPS games and indie titles.",
     location: "Toronto, Canada"
   },
@@ -13,7 +13,7 @@ export const userData: User[] = [
     id: "2",
     username: "pixel_queen",
     email: "alex@example.com",
-    avatarUrl: "https://example.com/avatars/alex.png",
+    avatarUrl: "hhttps://randomuser.me/api/portraits/women/27.jpg",
     bio: "Strategy games, MOBAS, and pixel art are my jam.",
     location: "Berlin, Germany"
   },
