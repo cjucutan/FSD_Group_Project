@@ -32,8 +32,8 @@ export function getGamesByPlatform(platformFilter: Platform): Game[] {
 }
 
 export async function addGame(newGame: Game) {
-    const lastGameId = allGames[allGames.length - 1].id;
-    newGame.id = (parseInt(lastGameId) + 1).toString();
+    const maxId = Math.max(...allGames.map(g => parseInt(g.id)));
+    newGame.id = (maxId + 1).toString();
     allGames.push(newGame);
     return newGame;
 }

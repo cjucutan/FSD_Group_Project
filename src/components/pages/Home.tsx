@@ -1,5 +1,5 @@
 import { GameList } from "../common/game-details/GameDetailsList"
-import {GameFormPreview} from "../common/game-form/game-form"
+import {GameFormPreview} from "../common/game-form/gameFormPreview"
 import AllGames from "../common/games/games"
 import UserProfileSection from "../common/user-profile/user-profile"
 import { CommunityHub } from "../common/Community_Hub/CommunityHub"

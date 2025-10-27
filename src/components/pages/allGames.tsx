@@ -6,6 +6,7 @@ import { Input } from '../common/ui/Input';
 import  { Select} from '../common/ui/Select';
 import { useAllGames } from '../../hooks/useAllGames';
 import { useFilteredGames } from '../../hooks/useFilteredGames';
+import { Link } from 'react-router';
 
 interface GameProps {
     gameDependencies: any[];
@@ -18,6 +19,15 @@ export default function DisplayAllGames({ gameDependencies, gameFilterFn }: Game
 
     return (
         <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 min-h-screen text-black">
+
+            <div className='flex justify-end'>
+                <Link
+                    to="/addGames"
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+                >
+                    + Create Game
+                </Link>
+            </div>
             <div className="flex justify-between gap-6">
                 <Input
                     className="w-full"
