@@ -107,11 +107,12 @@ export function Profile(){
                                 className="flex justify-center align-center my-2 h-10 w-32 rounded-2xl 
                                         bg-linear-to-br from-sky-950 via-blue-900 to-indigo-500 text-white
                                         hover:bg-linear-blue-900" 
-                                        type="submit" onClick={handleSaveProfile}>
-                                            <div className="flex h-full w-full items-center justify-center 
-                                            bg-gray-900 rounded-full hover:bg-blue-500">
-                                                Save Profile
-                                            </div>
+                                type="submit" 
+                                onClick={handleSaveProfile}>
+                                    <div className="flex h-full w-full items-center justify-center 
+                                    bg-gray-900 rounded-full hover:bg-blue-500">
+                                        Save Profile
+                                    </div>
                             </Button>
                         </div>
                     </div>
