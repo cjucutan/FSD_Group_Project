@@ -41,42 +41,4 @@ export async function deleteGame(gameId: string): Promise<{message: string}> {
     return allGamesRepo.deleteGame(gameId);
 }
 
-export async function validateGame(game: Game) {
-    const validationErrors = new Map<string, string>();
-    const validPlatforms = Object.values(Platform);
-    const validGenres = Object.values(Genre);
 
-    if(!game.gameName?.trim()) {
-        validationErrors.set('gameName', 'Game Name cannot be blank');
-    }
-
-    if(!game.image?.trim()) {
-        validationErrors.set('image', 'Game Image cannot be blank');
-    }
-
-    if(!game.detail?.trim()) {
-        validationErrors.set('detail', 'Game Detail cannot be blank');
-    }
-
-    if(!validGenres.includes(game.genre)) {
-        validationErrors.set('genre', 'Invalid Genre');
-    }
-
-    if(!game.ratings?.trim()) {
-        validationErrors.set('ratings', 'Game Ratings cannot be blank');
-    }
-
-    if(!validPlatforms.includes(game.platform)) {
-        validationErrors.set('platform', 'Invalid Platform');
-    }
-
-    if(!game.developer?.trim()) {
-        validationErrors.set('developer', 'Game Developer cannot be blank');
-    }
-
-    if(!game.user?.trim()) {
-        validationErrors.set('user', 'Game User cannot be blank');
-    }
-
-    return validationErrors;
-}

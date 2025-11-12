@@ -4,6 +4,7 @@ import { useFormState } from '../hooks/useForm';
 import * as GameService from '../services/allGames/allGamesService';
 import { Genre } from '../components/common/types/genre';
 import { Platform } from '../components/common/types/platform';
+import { useValidateGame } from './gameValidation';
 
 const DEFAULT_GAME: Game = {
     id: "",
@@ -21,8 +22,6 @@ export function useGameForm(initialGame: Game = DEFAULT_GAME) {
     const {
         formData: gameData,
         setFormData: setGameData,
-        errors,
-        setErrors,
         handleChange, 
         clearFieldError,
         clearAllErrors,
@@ -31,14 +30,15 @@ export function useGameForm(initialGame: Game = DEFAULT_GAME) {
         setIsSubmitting
     } = useFormState<Game>(initialGame)
 
-    const validate = async () => {
-        const validationErrors = await GameService.validateGame(gameData);
-        setErrors(validationErrors);
-        return validationErrors.size === 0;
-    }
+    const { errors, validateGame } = useValidateGame();
+
+    const validate = () => {
+        return validateGame(gameData); 
+};
+
 
     const onSubmitForm = async (formMode: "add" | "edit") => {
-        if (!(await validate())) return false;
+        if (!validate()) return false;
 
         setIsSubmitting(true);
         try {
@@ -53,23 +53,23 @@ export function useGameForm(initialGame: Game = DEFAULT_GAME) {
         
 
             setGameData(result);
-            setIsSubmitting(false);
             return result;
+        } catch (error) {
+            toast.error(`Failed to ${formMode === "add" ? "add" : "update"} game. Please try again.`);
         } finally {
-
-        setIsSubmitting(false);
+            setIsSubmitting(false);
         }
     };
 
     return {
         gameData,
         setGameData,
-        errors,
         isSubmitting,
         handleChange,
         clearFieldError,
         clearAllErrors,
         resetForm,
         onSubmitForm,
+        errors,
     };
 }
