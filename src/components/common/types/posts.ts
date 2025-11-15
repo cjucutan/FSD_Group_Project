@@ -1,16 +1,16 @@
-import type { GameName } from "./GameNames";
-
-export interface DiscussionPost {
-  postID: number;
+export interface Post {
+  postID?: string;
+  gameID: string;
+  gameName: string;
   userName: string;
-  dateCreated: string;
-  postMessage: string;
   postTitle: string;
+  postMessage: string;
   likes?: number;
+  dateCreated?: string;
 }
 
-export interface Post {
-  gameID: number;
-  gameName: GameName;
-  discussion: DiscussionPost[];
+export interface GroupedPosts {
+  gameID: string;
+  gameName: string;
+  posts: Post[];
 }
