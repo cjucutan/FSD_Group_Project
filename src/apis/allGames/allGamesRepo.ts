@@ -1,7 +1,7 @@
 import type { Game } from '../../components/common/types/games'
 import type { BaseResponse } from '../../components/common/types/BaseResponse';
 
-const BASE_URL = `${import.meta.env.VITE_API_URL}/api/v1`;
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/v1`;
 
 export async function getAllGames() {
     const gameResponse: Response = await fetch(`${BASE_URL}/games`);
@@ -10,6 +10,7 @@ export async function getAllGames() {
     }
     
     const json: BaseResponse<Game[]> = await gameResponse.json();
+    console.log(json.data);
     return json.data;
 }
 
@@ -26,9 +27,10 @@ export async function getGameById(id: string): Promise<Game | undefined> {
 }
 
 export async function addGame(Game: Game) {
+    const { id, ...body } = Game;
     const addResponse: Response = await fetch(`${BASE_URL}/games`, {
         method: 'POST',
-        body: JSON.stringify({...Game}),
+        body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -38,14 +40,15 @@ export async function addGame(Game: Game) {
         throw new Error(`Error adding game: ${addResponse.statusText}`);
     }
 
-    const json: BaseResponse<Game[]> = await addResponse.json();
+    const json: BaseResponse<Game> = await addResponse.json();
     return json.data;
 }
 
 export async function updateGame(Game: Game) {
+    const { id, ...body } = Game;
     const updateResponse: Response = await fetch(`${BASE_URL}/games/${Game.id}`, {
         method: 'PUT',
-        body: JSON.stringify({...Game}),
+        body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -55,12 +58,12 @@ export async function updateGame(Game: Game) {
         throw new Error(`Error updating game with id ${Game.id}: ${updateResponse.statusText}`);
     }
 
-    const json: BaseResponse<Game[]> = await updateResponse.json();
+    const json: BaseResponse<Game> = await updateResponse.json();
     return json.data;
 }
 
 export async function updateSavedGame(id: string, saved: boolean): Promise<Game[]> {
-    const updateSaveResponse: Response = await fetch(`${BASE_URL}/games/${id}/saved`, {
+    const updateSaveResponse: Response = await fetch(`${BASE_URL}/games/updateSaved/${id}`, {
         method: 'PUT',
         body: JSON.stringify({ saved }),
         headers: {

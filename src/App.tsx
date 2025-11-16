@@ -15,7 +15,6 @@ import EditGamePage from './components/pages/editGamePage';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [marketSearch, setMarketSearch] = useState("");
 
     const handleLogin = () => {
         setIsLoggedIn(true)
@@ -55,7 +54,7 @@ function App() {
             element={<AddGamePage />}
           />
           <Route
-            path="/games/:id/edit"
+            path="/games/:id"
             element={<EditGamePage />}
           />
           <Route path="CommunityHub" element={<CommunityHub />} />
@@ -64,10 +63,7 @@ function App() {
           <Route
           path="marketplace"
           element={
-            <CartridgeCartPage
-              searchQuery={marketSearch}
-              setSearchQuery={setMarketSearch}
-            />
+            <CartridgeCartPage />
           }
         />
           </Route>

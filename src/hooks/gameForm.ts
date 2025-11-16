@@ -38,28 +38,30 @@ export function useGameForm(initialGame: Game = DEFAULT_GAME) {
 
 
     const onSubmitForm = async (formMode: "add" | "edit") => {
-        if (!validate()) return false;
+    if (!validate()) return false;
 
-        setIsSubmitting(true);
-        try {
-            let result: Game;
-            if(formMode === "add") {
-                result = await GameService.addGame(gameData);
-                toast.success(`Added new Game: ${result.gameName}!`);
-            } else {
-                result = await GameService.updateGame(gameData);
-                toast.success(`Updated Game: ${result.gameName}!`);
-            }
-        
+    setIsSubmitting(true);
 
+    try {
+        if (formMode === "add") {
+            const result = await GameService.addGame(gameData);
+            toast.success(`Added new Game: ${result.gameName}!`);
             setGameData(result);
-            return result;
-        } catch (error) {
-            toast.error(`Failed to ${formMode === "add" ? "add" : "update"} game. Please try again.`);
-        } finally {
-            setIsSubmitting(false);
+        } else {
+            const updated = await GameService.updateGame(gameData);
+            toast.success(`Updated Game: ${updated.gameName}!`);
+            setGameData(updated);
         }
-    };
+
+        return true; 
+    } catch {
+        toast.error(`Failed to ${formMode === "add" ? "add" : "update"} game.`);
+        return false;
+    } finally {
+        setIsSubmitting(false);
+    }
+};
+
 
     return {
         gameData,

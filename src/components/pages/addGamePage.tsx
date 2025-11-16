@@ -27,11 +27,8 @@ export default function addGamePage() {
                 onChange={(e) => handleChange(e.target.name, e.target.value)}
                 errors={errors}
                 isSubmitting={isSubmitting}
+                onSubmit={handleSubmit}
             />
-
-            <button disabled={isSubmitting} onClick={handleSubmit}>
-                {isSubmitting ? "Saving..." : "Add Game"}
-            </button>
 
             <button onClick={resetForm}>
                 Reset

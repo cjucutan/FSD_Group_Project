@@ -5,63 +5,69 @@ import type { Genre } from '../components/common/types/genre';
 
 interface FilterOptions {
     searchTerm: string;
-    genres: Genre | "All";
-    platforms: Platform | "All";
+    genre: Genre | "All";
+    platform: Platform | "All";
 }
 
-export function useFilteredGames(games: Game[], genres: Genre[], filterFn?: ((game: Game) => boolean) | null) {
+export function useFilteredGames(
+    games: Game[],
+    filterFn?: ((game: Game) => boolean) | null
+) {
     const [filters, setFilters] = useState<FilterOptions>({
         searchTerm: "",
-        genres: "All",
-        platforms: "All"
+        genre: "All",
+        platform: "All"
     });
 
     const filteredGames = useMemo(() => {
-        let result = [...games];
+        let result = games;
 
+        // Custom filter (e.g. saved games only)
         if (filterFn) {
             result = result.filter(filterFn);
         }
 
-        const { searchTerm, genres, platforms } = filters;
+        const { searchTerm, genre, platform } = filters;
 
-        if (genres !== "All") {
-            result = result.filter(game => game.genre === genres);
+        // Genre filter
+        if (genre !== "All") {
+            result = result.filter(g => g.genre === genre);
         }
 
-        if (platforms !== "All") {
-            result = result.filter(game => game.platform === platforms);
+        // Platform filter
+        if (platform !== "All") {
+            result = result.filter(g => g.platform === platform);
         }
 
+        // Search filter
         if (searchTerm.trim() !== "") {
-            const st = searchTerm.toLowerCase();
-            result = result.filter(game =>
-                game.gameName.toLowerCase().includes(st) ||
-                game.genre.toLowerCase().includes(st) ||
-                game.platform.toLowerCase().includes(st)
+            const text = searchTerm.toLowerCase();
+
+            result = result.filter(g => 
+                g.gameName.toLowerCase().includes(text) ||
+                g.genre.toLowerCase().includes(text) ||
+                g.platform.toLowerCase().includes(text)
             );
         }
 
         return result;
     }, [games, filters, filterFn]);
 
-    const searchTerm = (searchTerm: string) => {
+    // Update functions
+    const setSearchTerm = (searchTerm: string) =>
         setFilters(prev => ({ ...prev, searchTerm }));
-    };
 
-    const setGenre = (genre: Genre | "All") => {
-        setFilters(prev => ({ ...prev, genres: genre }));
-    };
+    const setGenre = (genre: Genre | "All") =>
+        setFilters(prev => ({ ...prev, genre }));
 
-    const setPlatform = (platform: Platform | "All") => {
-        setFilters(prev => ({ ...prev, platforms: platform }));
-    };
+    const setPlatform = (platform: Platform | "All") =>
+        setFilters(prev => ({ ...prev, platform }));
 
     return {
         filteredGames,
-        searchTerm,
+        filters,
+        setSearchTerm,
         setGenre,
-        setPlatform,
-        filters
+        setPlatform
     };
 }
