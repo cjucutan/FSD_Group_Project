@@ -2,14 +2,15 @@ import { Input } from "../../ui/Input";
 import { Textarea } from "../../ui/Textarea";
 import { Button } from "../../ui/Button";
 import { Select } from "../../ui/Select";
-import type { Post, DiscussionPost } from "../../types/posts";
-import { GameNames } from "../../types/GameNames";
+import type { Post } from "../../types/posts";
+import { useAllGames  } from "../../../../hooks/useAllGames";
 import { useDiscussionForm } from "../../../../hooks/useDiscussionForm";
+import type { Game } from "../../types/games";
 
 interface DiscussionFormProps {
     formMode: "create";
-    games: Post[];
-    onCreateDiscussion: (discussion: DiscussionPost) => void;
+    games: Game[];
+    onCreateDiscussion: (discussion: Post) => void;
 }
 
 export function DiscussionForm({ formMode, onCreateDiscussion }: DiscussionFormProps) {
@@ -18,25 +19,32 @@ export function DiscussionForm({ formMode, onCreateDiscussion }: DiscussionFormP
     setTitle,
     message,
     setMessage,
-    user,
     setUser,
     selectedGame,
     setSelectedGame,
     form,
     onSubmitForm,
+    currentUser,
   } = useDiscussionForm();
 
+  const { games } = useAllGames([]);
+
   const handleSubmit = async () => {
-    const discussion = await onSubmitForm(formMode);
+    const selectedGames = games.find(g => g.id === selectedGame);
+    const gameID = selectedGames?.id || "";
+    const gameName = selectedGames?.gameName || "";
+    setUser(currentUser?.username || "Guest");
+    const discussion = await onSubmitForm(formMode, gameID, gameName);
     if (discussion) {
       onCreateDiscussion(discussion);
     }
   };
+  
 
   return (
     <div className="bg-grey-90 text-black p-7 rounded-xl shadow-lg w-full">
       <h2 className="text-2xl font-semibold mb-4 text-white">
-        Create a Discussion
+        Create a Post
       </h2>
       <form
         action={handleSubmit}
@@ -50,11 +58,11 @@ export function DiscussionForm({ formMode, onCreateDiscussion }: DiscussionFormP
                 value={selectedGame}
                 onChange={(e) => setSelectedGame(e.target.value)}>
                 <option value="">Select a Game</option>
-                {Object.values(GameNames).map((gameName) => (
-                    <option key={gameName} value={gameName}>
-                        {gameName}
+                  {games && games.length > 0 && games.map((game) => (
+                    <option key={game.id} value={game.id}>
+                      {game.gameName}
                     </option>
-                ))}
+                  ))}
             </Select>
             {form.errors.has("gameName") && <span className="text-red-500 font-semibold">{form.errors.get("gameName")}</span>}
         </div>
@@ -86,15 +94,9 @@ export function DiscussionForm({ formMode, onCreateDiscussion }: DiscussionFormP
         </div>
 
         <div>
-          <label className="block mb-1 text-sm text-gray-300">Username</label>
-          <Input
-            placeholder="Your name"
-            name="userName"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-            className="w-full"
-          />
-          {form.errors.has("userName") && <span className="text-red-500 font-semibold">{form.errors.get("userName")}</span>}
+          <p className="text-sm text-gray-400 mb-4">
+                  Posting as: <span className="font-semibold text-white">{currentUser?.username || "Guest"}</span>
+          </p>
         </div>
 
         <Button
