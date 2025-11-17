@@ -14,8 +14,8 @@ export async function updateUser(user: User){
     return await UserRepo.updateUser(user);
 }
 
-export async function deleteUser(user: User){
-    return await UserRepo.deleteUser(user);
+export async function deleteUser(id: string){
+    return await UserRepo.deleteUser(id);
 }
 
 export async function validateUser(user: Partial<User>){
