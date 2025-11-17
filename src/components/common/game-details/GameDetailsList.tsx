@@ -1,8 +1,9 @@
-import games from "../../data/games.json";
+import * as allGamesService from "../../../services/allGames/allGamesService"
+import { random } from "lodash";
 
-export function GameList() {
-  const game = games[0];
-
+export async function GameList() {
+  const games = await allGamesService.getAllGames();
+  const game = games[random(0, games.length - 1)];
   return (
     <section className="place-content-center p-10 grid ">
       <div className="max-w-md break-words ">

@@ -1,3 +1,6 @@
+import { Genre } from "../types/genre";
+import { Platform } from "../types/platform";
+
 export function GameFormPreview() {
   
   return (
@@ -25,21 +28,20 @@ export function GameFormPreview() {
             <div>
               <label htmlFor="qe-platform" className="block font-semibold underline p-1">Platform</label>
               <select id="qe-platform" className="w-full rounded-xl bg-white/10 border border-white/20 p-2">
-                <option>PC</option>
-                <option>PS5</option>
-                <option>Xbox</option>
-                <option>Switch</option>
+                {Object.values(Platform).map(p => (
+                  <option key={p} value={p}>{p}</option>
+                                    ))}
               </select>
             </div>
 
             <div>
               <label htmlFor="qe-genre" className="block font-semibold underline p-1">Genre</label>
-              <input
-                id="qe-genre"
-                type="text"
-                className="w-full rounded-xl bg-white/10 border border-white/20 p-2 placeholder-white/60"
-                placeholder="MOBA"
-              />
+              <select id="qe-genre" className="w-full rounded-xl bg-white/10 border border-white/20 p-2">
+                {Object.values(Genre).map(g => (
+                  <option key={g} value={g}>{g}</option>
+                                    ))}
+              </select>
+              
             </div>
           </div>
 
