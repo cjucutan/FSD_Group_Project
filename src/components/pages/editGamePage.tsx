@@ -21,6 +21,7 @@ export default function editGamePage() {
         async function loadGame() {
             if (!id) return;
             const game = await GameService.getGameById(id);
+            console.log("Loaded game", game);
             if (game) {
                 setGameData(game);
             } else {
@@ -31,6 +32,7 @@ export default function editGamePage() {
     }, [id, setGameData, navigate]);
 
     const handleSubmit = async () => {
+        console.log("Submitting edit form", gameData.id, gameData.gameName);
         const result = await onSubmitForm("edit");
         if (result) navigate("/allGames");
     };
@@ -46,11 +48,8 @@ export default function editGamePage() {
                 onChange={(e) => handleChange(e.target.name, e.target.value)}
                 errors={errors}
                 isSubmitting={isSubmitting}
+                onSubmit={handleSubmit}
             />
-
-            <button disabled={isSubmitting} onClick={handleSubmit}>
-                {isSubmitting ? "Updating..." : "Save Changes"}
-            </button>
         </div>
     );
 }
