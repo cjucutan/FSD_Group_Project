@@ -4,6 +4,7 @@ import { useFormState } from '../hooks/useForm';
 import * as GameService from '../services/allGames/allGamesService';
 import { Genre } from '../components/common/types/genre';
 import { Platform } from '../components/common/types/platform';
+import { useValidateGame } from './gameValidation';
 
 const DEFAULT_GAME: Game = {
     id: "",
@@ -21,8 +22,6 @@ export function useGameForm(initialGame: Game = DEFAULT_GAME) {
     const {
         formData: gameData,
         setFormData: setGameData,
-        errors,
-        setErrors,
         handleChange, 
         clearFieldError,
         clearAllErrors,
@@ -31,45 +30,48 @@ export function useGameForm(initialGame: Game = DEFAULT_GAME) {
         setIsSubmitting
     } = useFormState<Game>(initialGame)
 
-    const validate = async () => {
-        const validationErrors = await GameService.validateGame(gameData);
-        setErrors(validationErrors);
-        return validationErrors.size === 0;
-    }
+    const { errors, validateGame } = useValidateGame();
+
+    const validate = () => {
+        return validateGame(gameData); 
+};
+
 
     const onSubmitForm = async (formMode: "add" | "edit") => {
-        if (!(await validate())) return false;
+    if (!validate()) return false;
 
-        setIsSubmitting(true);
-        try {
-            let result: Game;
-            if(formMode === "add") {
-                result = await GameService.addGame(gameData);
-                toast.success(`Added new Game: ${result.gameName}!`);
-            } else {
-                result = await GameService.updateGame(gameData);
-                toast.success(`Updated Game: ${result.gameName}!`);
-            }
-        
+    setIsSubmitting(true);
 
+    try {
+        if (formMode === "add") {
+            const result = await GameService.addGame(gameData);
+            toast.success(`Added new Game: ${result.gameName}!`);
             setGameData(result);
-            setIsSubmitting(false);
-            return result;
-        } finally {
-
-        setIsSubmitting(false);
+        } else {
+            const updated = await GameService.updateGame(gameData);
+            toast.success(`Updated Game: ${updated.gameName}!`);
+            setGameData(updated);
         }
-    };
+
+        return true; 
+    } catch {
+        toast.error(`Failed to ${formMode === "add" ? "add" : "update"} game.`);
+        return false;
+    } finally {
+        setIsSubmitting(false);
+    }
+};
+
 
     return {
         gameData,
         setGameData,
-        errors,
         isSubmitting,
         handleChange,
         clearFieldError,
         clearAllErrors,
         resetForm,
         onSubmitForm,
+        errors,
     };
 }
