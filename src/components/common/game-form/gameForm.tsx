@@ -7,11 +7,17 @@ interface Props {
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
     errors: Map<string, string>;
     isSubmitting: boolean;
+    onSubmit: () => void | Promise<void>;
 }
 
-export default function GameForm({ gameData, onChange, errors, isSubmitting }: Props) {
+export default function GameForm({ gameData, onChange, errors, isSubmitting, onSubmit }: Props) {
     return (
-        <form className="space-y-6 bg-grey-800 p-6 rounded-lg shadow-lg border border-grey-700">
+        <form className="space-y-6 bg-grey-800 p-6 rounded-lg shadow-lg border border-grey-700"
+        onSubmit={(e) => {
+            e.preventDefault();
+            onSubmit();
+        }}
+    >
 
             <div className="flex flex-col gap-1">
                 <label className="text-white font-medium">Game Name</label>
@@ -23,7 +29,7 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting }: P
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
                 {errors.has("gameName") && (
-                    <span className="text-red-500 text-sm mt-1 block">{errors.get("name")}</span>
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("gameName")}</span>
                 )}
             </div>
 

@@ -21,7 +21,7 @@ export default function AllGamesItem({ game, onGameSaved }: allGamesItemProps) {
             {game.gameName} - {game.genre}
           </div>
           <div className="flex gap-2">
-            <Button onClick={() => navigate(`/games/${game.id}/edit`)}>
+            <Button onClick={() => navigate(`/games/${game.id}`)}>
               <Edit />
             </Button>
             <Button onClick={() => onGameSaved(game)}>{game.saved ? <Star fill="orange" /> : <Star />}</Button>
