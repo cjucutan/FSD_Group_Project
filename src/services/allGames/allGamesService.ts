@@ -13,7 +13,7 @@ export async function addGame(game: Game) {
     return allGamesRepo.addGame(game);
 }
 
-export async function updateGame(game: Game){
+export async function updateGame(game: Game): Promise<Game> {
     return allGamesRepo.updateGame(game);
 }
 

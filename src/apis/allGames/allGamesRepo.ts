@@ -28,7 +28,8 @@ export async function getGameById(id: string): Promise<Game | undefined> {
 
 export async function addGame(Game: Game) {
     const { id, ...body } = Game;
-    const addResponse: Response = await fetch(`${BASE_URL}/games`, {
+    console.log('Adding game with body:', body);
+    const addResponse: Response = await fetch(`${BASE_URL}/games/create`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
@@ -46,6 +47,7 @@ export async function addGame(Game: Game) {
 
 export async function updateGame(Game: Game) {
     const { id, ...body } = Game;
+    console.log('Updating game with body:', body);
     const updateResponse: Response = await fetch(`${BASE_URL}/games/${Game.id}`, {
         method: 'PUT',
         body: JSON.stringify(body),
