@@ -1,21 +1,31 @@
 import type {User} from "../types/users";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import img1 from '../../data/images/noprofile.jpg';
-import * as UserService from "../../../apis/userProfile/userProfile";
 import { useFormState } from "../../../hooks/useForm";
 import { validateUser } from "../../../services/userProfile/userProfileService";
 import { Button } from "../ui/Button";
 import { Input } from "../ui/Input";
 import { Textarea } from "../ui/Textarea";
-
-const users: User[] = UserService.getUsers();
-const user_1 = users[0]
+import { useUserProfile } from "../../../hooks/useUserProfile";
 
 export function Profile(){
 
+    const {users} = useUserProfile()
     const [showUpdate, setShowUpdate] = useState(false);
-    const [user, setUser] = useState(user_1);
-    const {formData, handleChange, errors, setErrors} = useFormState(user);
+    const [user, setUser] = useState<User | null>(null);
+    const {formData, handleChange, errors, setErrors, setFormData} = useFormState(user);
+
+    useEffect(() => {
+        if(users.length > 0){
+            setUser(users[0])
+        }
+    },[users]);
+
+    useEffect(() => {
+        if(user) {
+            setFormData(user);
+        }
+    },[user, setFormData])
 
     function handleUpdate(){
         setShowUpdate(true);
@@ -32,6 +42,10 @@ export function Profile(){
         
         setUser(formData as User);
         setShowUpdate(false);
+    }
+    
+    if(!user){
+        return <div>Loading your profile...</div>
     }
 
     return(

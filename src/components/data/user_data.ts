@@ -13,7 +13,7 @@ export const userData: User[] = [
     id: "2",
     username: "pixel_queen",
     email: "alex@example.com",
-    avatarUrl: "hhttps://randomuser.me/api/portraits/women/27.jpg",
+    avatarUrl: "https://randomuser.me/api/portraits/women/27.jpg",
     bio: "Strategy games, MOBAS, and pixel art are my jam.",
     location: "Berlin, Germany"
   },
