@@ -1,64 +1,44 @@
-import { useEffect, useState } from "react";
-import { marketplaceService, type MarketFilters } from "../services/marketplace/marketplaceService";
-import type { MarketplaceItem } from "../components/common/types/marketplace";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import * as svc from "../services/marketplace/marketplaceService";
+import type { ListingDto } from "../apis/marketplace/marketplaceRepo";
 
-function useDebounced<T>(value: T, ms: number) {
-  const [v, setV] = useState(value);
-  useEffect(() => {
-    const t = setTimeout(() => setV(value), ms);
-    return () => clearTimeout(t);
-  }, [value, ms]);
-  return v;
-}
-
-export function useMarketplace(initial?: Partial<MarketFilters>) {
-  const [filters, setFilters] = useState<MarketFilters>({
-    q: "",
-    platform: "Any",
-    condition: "Any",
-    maxPrice: null,
-    savedOnly: false,
-    sort: "recent",
-    ...initial,
-  });
-
-  const [items, setItems] = useState<MarketplaceItem[]>([]);
+export function useMarketplace(searchQuery?: string) {
+  const [listings, setListings] = useState<ListingDto[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const debounced = useDebounced(filters, 150);
-
-  useEffect(() => {
-    let alive = true;
+  const load = useCallback(async (q?: string) => {
     setLoading(true);
-    marketplaceService.list(debounced)
-      .then(list => { if (alive) setItems(list); })
-      .finally(() => { if (alive) setLoading(false); });
-    return () => { alive = false; };
-  }, [debounced]);
+    setError(null);
+    try {
+      const data = await svc.fetchListings(q);
+      setListings(data);
+    } catch (e) {
+      setError((e as Error).message || "Failed to fetch");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-  async function toggleSaved(id: string) {
-    const updated = await marketplaceService.toggleSaved(id);
-    if (!updated) return;
-    setItems(prev => prev.map(i => (i.id === id ? updated : i)));
-  }
+  useEffect(() => { load(searchQuery); }, [load, searchQuery]);
 
-  async function addItem(input: Omit<MarketplaceItem, "id" | "createdAt">) {
-    const created = await marketplaceService.create(input);
-    setItems(prev => [created, ...prev]);
-  }
+  const filtered = useMemo(() => {
+    const q = (searchQuery || "").trim().toLowerCase();
+    if (!q) return listings;
+    return listings.filter(l =>
+      [l.title, l.platform, String(l.price), l.note ?? ""].join(" ").toLowerCase().includes(q)
+    );
+  }, [listings, searchQuery]);
 
-  async function removeItem(id: string) {
-    const ok = await marketplaceService.remove(id);
-    if (ok) setItems(prev => prev.filter(i => i.id !== id));
-  }
-
-  return {
-    filters,
-    setFilters,
-    items,
-    loading,
-    toggleSaved,
-    addItem,
-    removeItem,
+  const add = async (input: Omit<ListingDto, "id" | "dateCreated">) => {
+    const created = await svc.addListing(input);
+    setListings(prev => [created, ...prev]);
   };
+
+  const remove = async (id: string) => {
+    await svc.removeListing(id);
+    setListings(prev => prev.filter(l => l.id !== id));
+  };
+
+  return { listings, filtered, loading, error, add, remove, reload: () => load(searchQuery) };
 }

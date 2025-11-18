@@ -7,7 +7,7 @@ import DisplayAllGames from './components/pages/allGames'
 import SavedGames from './components/pages/savedGames'
 import { CommunityHub } from './components/common/Community_Hub/CommunityHub'
 import { Profile } from './components/common/user-profile/profile-page'
-import { CartridgeCartPage } from './components/common/marketplace/CartridgeCartPage'
+import {CartridgeCartPage} from "../src/components/common/marketplace/CartridgeCartPage";
 import { ToastContainer } from 'react-toastify';
 import AddGamePage from './components/pages/addGamePage';
 import EditGamePage from './components/pages/editGamePage';
@@ -63,7 +63,7 @@ function App() {
           <Route
           path="marketplace"
           element={
-            <CartridgeCartPage />
+            <CartridgeCartPage/>
           }
         />
           </Route>
