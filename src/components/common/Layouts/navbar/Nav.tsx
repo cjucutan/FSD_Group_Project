@@ -1,13 +1,9 @@
 import { NavLink } from "react-router";
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 
 
-interface NavProps {
-    isLoggedIn: boolean;
-    onLogin: () => void;
-}
 
-
-function Nav({ isLoggedIn, onLogin }: NavProps) {
+function Nav() {
     return (
         <div className="flex justify-center p-8">
             <nav>
@@ -32,10 +28,16 @@ function Nav({ isLoggedIn, onLogin }: NavProps) {
                 <span>
                     <a href="userProfile" className="pr-4">Profile </a>
                 </span>
-                <a onClick={() => onLogin()}>{isLoggedIn ? "Logout" : "Login / Signup"} </a>
             </nav>
+                <span>
+                    <SignedOut>
+                        <SignInButton />
+                    </SignedOut>
+                    <SignedIn>
+                        <UserButton />
+                    </SignedIn>
+                </span>
         </div>
-
     )
 };
 
