@@ -15,8 +15,12 @@ export async function getAllGames() {
 }
 
 
-export async function getGameById(id: string): Promise<Game | undefined> {
-    const gameResponse: Response = await fetch(`${BASE_URL}/games/${id}`);
+export async function getGameById(id: string, sessionToken: string): Promise<Game | undefined> {
+    const gameResponse: Response = await fetch(`${BASE_URL}/games/${id}`, {
+    headers: {
+        Authorization: `Bearer ${sessionToken}`,
+    },
+    });
     
     if (!gameResponse.ok) {
         throw new Error(`Error fetching game with id ${id}: ${gameResponse.statusText}`);
@@ -26,15 +30,16 @@ export async function getGameById(id: string): Promise<Game | undefined> {
     return json.data;
 }
 
-export async function addGame(Game: Game) {
+export async function addGame(Game: Game, sessionToken: string) {
     const { id, ...body } = Game;
     console.log('Adding game with body:', body);
     const addResponse: Response = await fetch(`${BASE_URL}/games/create`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${sessionToken}`,
+        },
     });
 
     if (!addResponse.ok) {
@@ -45,15 +50,16 @@ export async function addGame(Game: Game) {
     return json.data;
 }
 
-export async function updateGame(Game: Game) {
+export async function updateGame(Game: Game, sessionToken: string) {
     const { id, ...body } = Game;
     console.log('Updating game with body:', body);
     const updateResponse: Response = await fetch(`${BASE_URL}/games/${Game.id}`, {
         method: 'PUT',
         body: JSON.stringify(body),
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${sessionToken}`,
+        },
     });
 
     if (!updateResponse.ok) {
@@ -64,13 +70,14 @@ export async function updateGame(Game: Game) {
     return json.data;
 }
 
-export async function updateSavedGame(id: string, saved: boolean): Promise<Game[]> {
+export async function updateSavedGame(id: string, saved: boolean, sessionToken: string): Promise<Game[]> {
     const updateSaveResponse: Response = await fetch(`${BASE_URL}/games/updateSaved/${id}`, {
         method: 'PUT',
         body: JSON.stringify({ saved }),
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${sessionToken}`,
+        },
     });
 
     if (!updateSaveResponse.ok) {
@@ -81,9 +88,12 @@ export async function updateSavedGame(id: string, saved: boolean): Promise<Game[
     return json.data;
 }
 
-export async function deleteGame(id: string): Promise<void> {
+export async function deleteGame(id: string, sessionToken: string): Promise<void> {
     const deleteResponse: Response = await fetch(`${BASE_URL}/games/${id}`, {
         method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${sessionToken}`
+        }
     });
 
     if (!deleteResponse.ok) {

@@ -5,9 +5,10 @@ import AllGamesItem from "./allGamesItem";
 interface GameListProps {
   games: Game[];
   onGameSaved: (game: Game) => void;
+  onGameDeleted: (id: string) => void;
 }
 
-export default function AllGamesList({ games, onGameSaved }: GameListProps) {
+export default function AllGamesList({ games, onGameSaved, onGameDeleted }: GameListProps) {
   
   return (
     <section className="games-list">
@@ -16,6 +17,7 @@ export default function AllGamesList({ games, onGameSaved }: GameListProps) {
           key={games.id}
           game={games}
           onGameSaved={onGameSaved}
+          onGameDeleted={onGameDeleted}
         />
       ))}
     </section>

@@ -18,7 +18,7 @@ const DEFAULT_GAME: Game = {
     user: "",
 }
 
-export function useGameForm(initialGame: Game = DEFAULT_GAME) {
+export function useGameForm(initialGame: Game = DEFAULT_GAME, sessionToken: string = "") {
     const {
         formData: gameData,
         setFormData: setGameData,
@@ -44,11 +44,11 @@ export function useGameForm(initialGame: Game = DEFAULT_GAME) {
 
     try {
         if (formMode === "add") {
-            const result = await GameService.addGame(gameData);
+            const result = await GameService.addGame(gameData, sessionToken);
             toast.success(`Added new Game: ${result.gameName}!`);
             setGameData(result);
         } else {
-            const updated = await GameService.updateGame(gameData);
+            const updated = await GameService.updateGame(gameData, sessionToken);
             toast.success(`Updated Game: ${updated.gameName}!`);
             setGameData(updated);
         }

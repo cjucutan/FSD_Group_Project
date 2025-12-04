@@ -20,10 +20,10 @@ export function useAllGames(dependencies: unknown[] = []) {
 
     // --- Toggle saved on backend ---
     const toggleSavedGame = useCallback(
-    async (game: Game) => {
+    async (game: Game, sessionToken: string) => {
         try {
             // Backend returns FULL updated game list
-            const updatedGames = await gamesService.toggleSavedGame(game);
+            const updatedGames = await gamesService.toggleSavedGame(game, sessionToken);
 
             // Since backend returns Game[], just replace it
             setGames(updatedGames);
@@ -53,6 +53,32 @@ export function useAllGames(dependencies: unknown[] = []) {
     []
 );
 
+    // --- Delete a game on backend ---
+    const deleteGame = useCallback(
+        async (id: string, sessionToken: string) => {
+            try {
+                await gamesService.deleteGame(id, sessionToken);
+                setGames((prev) => prev.filter((g) => g.id !== id)); // remove from local state
+                toast.success("Game deleted successfully!", {
+                    position: "bottom-center",
+                    theme: "light",
+                    hideProgressBar: true,
+                    autoClose: 2500,
+                });
+            } catch (errorObject: any) {
+                console.error("Error deleting game:", errorObject);
+                setError(errorObject?.message || "Failed to delete game.");
+                toast.error("Failed to delete game.", {
+                    position: "bottom-center",
+                    theme: "light",
+                    hideProgressBar: true,
+                    autoClose: 2500,
+                });
+            }
+        },
+        []
+    );
+
     // --- Load games on mount or dependency change ---
     useEffect(() => {
         fetchGames();
@@ -62,6 +88,7 @@ export function useAllGames(dependencies: unknown[] = []) {
         games,
         error,
         fetchGames,
-        toggleSavedGame
+        toggleSavedGame,
+        deleteGame
     };
 }
