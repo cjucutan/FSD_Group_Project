@@ -69,12 +69,11 @@ export default function DisplayAllGames({ gameDependencies, gameFilterFn }: Game
             <AllGamesList
                 games={filteredGames}
                 onGameSaved={(game) => {
-                    // Replace 'yourSessionToken' with the actual session token as needed
-                    const sessionToken = ""; // TODO: get session token from context or props
+                    const sessionToken = ""; 
                     toggleSavedGame(game, sessionToken);
                 }}
                 onGameDeleted={(id) => {
-                    const sessionToken = ""; // TODO: get session token from context or props
+                    const sessionToken = ""; 
                     deleteGame(id, sessionToken);
                 }}
             />
