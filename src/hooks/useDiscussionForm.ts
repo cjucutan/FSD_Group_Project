@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useFormState } from "./useForm";
 import *  as userService from "../services/userProfile/userProfileService";
 import type { User } from  "../components/common/types/users";
+import { useAuth } from "@clerk/clerk-react";
 
 const DEFAULT_DISCUSSION_POST = {
     postID: "",
@@ -19,6 +20,7 @@ const DEFAULT_DISCUSSION_POST = {
 
 export function useDiscussionForm() {
     const [discussionData, setDiscussionData] = useState<Post>(DEFAULT_DISCUSSION_POST);
+    const { getToken, isSignedIn } = useAuth()
     const [title, setTitle] = useState("");
     const [message, setMessage] = useState("");
     const [user, setUser] = useState("");
@@ -30,7 +32,7 @@ export function useDiscussionForm() {
 
     useEffect(() => {
         async function loadUsers() {
-            const data = await userService.getUsers();   // returns Promise<User[]>
+            const data = await userService.getUsers();
             setUsers(data);
         }
         loadUsers();
@@ -67,35 +69,38 @@ export function useDiscussionForm() {
     };
 
     const onSubmitForm = async (formMode: "create" | "edit", gameID: string, gameName: string) => {
-        const discussionErrors = await DiscussionService.validatePost({postTitle: title, postMessage: message}, selectedGame)
-        form.setErrors(discussionErrors);
-        if (discussionErrors.size == 0) {
-            const discussion: Post = {
-                gameID: gameID,
-                gameName: gameName,
-                postTitle: title,
-                postMessage: message,
-                userName: user || currentUser?.username || "Guest",
-            };
-            let toastMessage = `Successfully created a new discussion post ${discussion.postTitle}!`;
-            let postId = discussion.postID;
-            if (formMode == "create") {
-                const createNewDiscussion = await DiscussionService.createNewPost(discussion)
-                if (createNewDiscussion) {
-                    postId = createNewDiscussion.gameID
+        const sessionToken = await getToken();
+        if(isSignedIn && sessionToken) {
+            const discussionErrors = await DiscussionService.validatePost({postTitle: title, postMessage: message}, selectedGame)
+            form.setErrors(discussionErrors);
+            if (discussionErrors.size == 0) {
+                const discussion: Post = {
+                    gameID: gameID,
+                    gameName: gameName,
+                    postTitle: title,
+                    postMessage: message,
+                    userName: user || currentUser?.username || "Guest",
+                };
+                let toastMessage = `Successfully created a new discussion post ${discussion.postTitle}!`;
+                let postId = discussion.postID;
+                if (formMode == "create") {
+                    const createNewDiscussion = await DiscussionService.createNewPost(discussion, sessionToken)
+                    if (createNewDiscussion) {
+                        postId = createNewDiscussion.gameID
+                    }
                 }
+                toast(toastMessage, {
+                    position: "bottom-center",
+                    theme: "light",
+                    hideProgressBar: true,
+                    closeButton: false,
+                    autoClose: 2500,
+                });
+                onReset();
+                return discussion;
             }
-            toast(toastMessage, {
-                position: "bottom-center",
-                theme: "light",
-                hideProgressBar: true,
-                closeButton: false,
-                autoClose: 2500,
-            });
-            onReset();
-            return discussion;
+            return null;
         }
-        return null;
     };
     return { discussionData, title, setTitle, message, setMessage, user, setUser, selectedGame, setSelectedGame, form, onReset, onSubmitForm, handleFormChange, currentUser, };
 

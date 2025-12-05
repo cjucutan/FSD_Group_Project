@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import * as postService from "../services/communityHub/discussionService";
 import type { Post, GroupedPosts } from "../components/common/types/posts";
 import { toast } from "react-toastify";
+import { useAuth } from "@clerk/clerk-react";
 
 export function usePosts(dependencies: unknown[]) {
     const [posts, setPosts] = useState<Post[]>([]);
     const [error, setError] = useState<string | null>();
+    const { getToken, isSignedIn } = useAuth()
 
     const fetchPosts = async () => {
         try {
@@ -18,19 +20,22 @@ export function usePosts(dependencies: unknown[]) {
     };
 
     const deletePost = async (postID: string) => {
-        try {
-            await postService.deletePost(postID);
-            toast("Post has been deleted", {
-                position: "bottom-center",
-                theme: "light",
-                hideProgressBar: true,
-                closeButton: false,
-                autoClose: 2500,
-            });
+        const sessionToken = await getToken();
+        if( isSignedIn && sessionToken) {
+            try {
+                await postService.deletePost(postID, sessionToken);
+                toast("Post has been deleted", {
+                    position: "bottom-center",
+                    theme: "light",
+                    hideProgressBar: true,
+                    closeButton: false,
+                    autoClose: 2500,
+                });
             await fetchPosts();
-        } catch (errorObject) {
-            console.error("Failed to delete post:", errorObject);
-            setError(`${errorObject}`);
+            } catch (errorObject) {
+                console.error("Failed to delete post:", errorObject);
+                setError(`${errorObject}`);
+            }
         }
     };
 
