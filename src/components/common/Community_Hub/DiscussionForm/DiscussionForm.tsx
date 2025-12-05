@@ -30,13 +30,13 @@ export function DiscussionForm({ formMode, onCreateDiscussion }: DiscussionFormP
   const { games } = useAllGames([]);
   const { user, isSignedIn } = useUser();
 
-  const clerkUsername = user?.username
+  const clerkUsername = user?.username || user?.emailAddresses[0]?.emailAddress || "Guest";
 
   const handleSubmit = async () => {
     const selectedGames = games.find(g => g.id === selectedGame);
     const gameID = selectedGames?.id || "";
     const gameName = selectedGames?.gameName || "";
-    setUser(clerkUsername);
+    setUser(clerkUsername || "");
     const discussion = await onSubmitForm(formMode, gameID, gameName);
     if (discussion) {
       onCreateDiscussion(discussion);

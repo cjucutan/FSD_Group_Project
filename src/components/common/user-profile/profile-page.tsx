@@ -13,7 +13,7 @@ export function Profile(){
     const {users} = useUserProfile()
     const [showUpdate, setShowUpdate] = useState(false);
     const [user, setUser] = useState<User | null>(null);
-    const {formData, handleChange, errors, setErrors, setFormData} = useFormState(user);
+    const {formData, handleChange, errors, setErrors, setFormData} = useFormState(user ?? {} as User);
 
     useEffect(() => {
         if(users.length > 0){
@@ -30,7 +30,7 @@ export function Profile(){
     function handleUpdate(){
         setShowUpdate(true);
     }
-    async function handleSaveProfile (e){
+    async function handleSaveProfile (e: React.FormEvent){
         e.preventDefault();
         
         const validationErrors = await validateUser(formData);
