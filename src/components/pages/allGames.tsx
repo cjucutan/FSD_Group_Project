@@ -14,7 +14,7 @@ interface GameProps {
 }
 
 export default function DisplayAllGames({ gameDependencies, gameFilterFn }: GameProps) {
-    const { games, toggleSavedGame } = useAllGames(gameDependencies);
+    const { games, toggleSavedGame, deleteGame } = useAllGames(gameDependencies);
 
     const {
         filteredGames,
@@ -22,6 +22,7 @@ export default function DisplayAllGames({ gameDependencies, gameFilterFn }: Game
         setGenre,
         setPlatform
     } = useFilteredGames(games, gameFilterFn);
+
 
     return (
         <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 min-h-screen text-black">
@@ -67,7 +68,14 @@ export default function DisplayAllGames({ gameDependencies, gameFilterFn }: Game
 
             <AllGamesList
                 games={filteredGames}
-                onGameSaved={toggleSavedGame}
+                onGameSaved={(game) => {
+                    const sessionToken = ""; 
+                    toggleSavedGame(game, sessionToken);
+                }}
+                onGameDeleted={(id) => {
+                    const sessionToken = ""; 
+                    deleteGame(id, sessionToken);
+                }}
             />
         </div>
     );

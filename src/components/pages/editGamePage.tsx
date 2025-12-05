@@ -19,9 +19,14 @@ export default function editGamePage() {
 
     useEffect (() => {
         async function loadGame() {
+            const token = localStorage.getItem("sessionToken");
+            if(!token) {
+                navigate("/login");
+                return
+            }
             if (!id) return;
-            const game = await GameService.getGameById(id);
-            console.log("Loaded game", game);
+                const game = await GameService.getGameById(id, token);
+                console.log("Loaded game", game);
             if (game) {
                 setGameData(game);
             } else {
