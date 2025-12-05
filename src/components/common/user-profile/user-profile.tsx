@@ -1,5 +1,4 @@
 import { userData } from '../../../../src/components/data/user_data';
-import img1 from '../../data/images/noprofile.jpg';
 import type { User } from '../types/users';
 
 const users: User[] = userData;
