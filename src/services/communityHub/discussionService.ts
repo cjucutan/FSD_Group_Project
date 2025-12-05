@@ -6,16 +6,16 @@ export async function fetchAllPosts() {
   return posts;
 }
 
-export async function createNewPost(posts: Post) {
-  return await serviceRepo.createPost(posts);
+export async function createNewPost(posts: Post, sessionToken: string) {
+  return await serviceRepo.createPost(posts, sessionToken);
 }
 
-export async function updatePost(post: Post) {
-  return await serviceRepo.updatePost(post);
+export async function updatePost(post: Post, sessionToken: string) {
+  return await serviceRepo.updatePost(post, sessionToken);
 }
 
-export async function deletePost(postID: string) {
-  return await serviceRepo.deletePost(postID);
+export async function deletePost(postID: string, sessionToken: string) {
+  return await serviceRepo.deletePost(postID, sessionToken);
 }
 
 export function validatePost(discussion: Partial<Post>, gameName?: string) {

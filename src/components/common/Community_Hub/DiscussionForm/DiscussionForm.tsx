@@ -6,6 +6,7 @@ import type { Post } from "../../types/posts";
 import { useAllGames  } from "../../../../hooks/useAllGames";
 import { useDiscussionForm } from "../../../../hooks/useDiscussionForm";
 import type { Game } from "../../types/games";
+import { useUser } from "@clerk/clerk-react";
 
 interface DiscussionFormProps {
     formMode: "create";
@@ -24,16 +25,18 @@ export function DiscussionForm({ formMode, onCreateDiscussion }: DiscussionFormP
     setSelectedGame,
     form,
     onSubmitForm,
-    currentUser,
   } = useDiscussionForm();
 
   const { games } = useAllGames([]);
+  const { user, isSignedIn } = useUser();
+
+  const clerkUsername = user?.username
 
   const handleSubmit = async () => {
     const selectedGames = games.find(g => g.id === selectedGame);
     const gameID = selectedGames?.id || "";
     const gameName = selectedGames?.gameName || "";
-    setUser(currentUser?.username || "Guest");
+    setUser(clerkUsername);
     const discussion = await onSubmitForm(formMode, gameID, gameName);
     if (discussion) {
       onCreateDiscussion(discussion);
@@ -95,7 +98,7 @@ export function DiscussionForm({ formMode, onCreateDiscussion }: DiscussionFormP
 
         <div>
           <p className="text-sm text-gray-400 mb-4">
-                  Posting as: <span className="font-semibold text-white">{currentUser?.username || "Guest"}</span>
+                  Posting as: <span className="font-semibold text-white">{isSignedIn ? clerkUsername : "Guest"}</span>
           </p>
         </div>
 
