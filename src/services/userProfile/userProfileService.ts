@@ -10,12 +10,16 @@ export async function createNewUser(user: User){
     return await UserRepo.createUser(user);
 }
 
-export async function updateUser(user: User){
-    return await UserRepo.updateUser(user);
+export async function getUserbyId(id: string){
+    return await UserRepo.getUserById(id);
 }
 
-export async function deleteUser(id: string){
-    return await UserRepo.deleteUser(id);
+export async function updateUser(user: User, sessionToken: string){
+    return await UserRepo.updateUser(user, sessionToken);
+}
+
+export async function deleteUser(id: string, sessionToken: string){
+    return await UserRepo.deleteUser(id, sessionToken);
 }
 
 export async function validateUser(user: Partial<User>){
@@ -23,9 +27,6 @@ export async function validateUser(user: Partial<User>){
 
     if(!user.username?.trim()){
         validationErrors.set("username", "Username is required");
-    }
-    if(!user.email?.trim()){
-        validationErrors.set("email", "Email is required")
     }
 
     return validationErrors;
