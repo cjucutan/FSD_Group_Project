@@ -13,6 +13,8 @@ export const Games: Game[] = [
     platform: Platform.PC,
     developer: "Valve",
     user: "pixel_queen",
+    userId: "2",
+    price: "0"
   },
   {
     id: "2",
@@ -24,6 +26,8 @@ export const Games: Game[] = [
     platform: Platform.PC,
     developer: "Riot Games",
     user: "pixel_queen",
+    userId: "2",
+    price: "0"
   },
   {
     id: "3",
@@ -35,6 +39,8 @@ export const Games: Game[] = [
     platform: Platform.PC,
     developer: "Riot Games",
     user: "gamer_dan",
+    userId: "2",
+    price: "0"
   },
   {
     id: "4",
@@ -46,6 +52,8 @@ export const Games: Game[] = [
     platform: Platform.PC,
     developer: "Valve",
     user: "gamer_dan",
+    userId: "2",
+    price: "0"
   },
   {
     id: "5",
@@ -57,6 +65,8 @@ export const Games: Game[] = [
     platform: Platform.PC,
     developer: "FromSoftware",
     user: "cyberknight",
+    userId: "2",
+    price: "0"
   },
   {
     id: "6",
@@ -68,6 +78,8 @@ export const Games: Game[] = [
     platform: Platform.SWITCH,
     developer: "Nintendo",
     user: "terminalqueen",
+    userId: "2",
+    price: "0"
   },
   {
     id: "7",
@@ -79,6 +91,8 @@ export const Games: Game[] = [
     platform: Platform.PC,
     developer: "Mojang Studios",
     user: "datahawk",
+    userId: "2",
+    price: "0"
   },
   {
     id: "8",
@@ -90,6 +104,8 @@ export const Games: Game[] = [
     platform: Platform.PS5,
     developer: "HoYoverse",
     user: "api_addict",
+    userId: "2",
+    price: "0"
   },
   {
     id: "9",
@@ -101,6 +117,8 @@ export const Games: Game[] = [
     platform: Platform.PC,
     developer: "Epic Games",
     user: "gamer_dan",
+    userId: "2",
+    price: "0"
   },
   {
     id: "10",
@@ -112,5 +130,7 @@ export const Games: Game[] = [
     platform: Platform.PC,
     developer: "ConcernedApe",
     user: "devdaisy",
+    userId: "2",
+    price: "0"
   },
 ];
