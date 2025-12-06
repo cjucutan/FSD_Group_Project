@@ -68,14 +68,8 @@ export default function DisplayAllGames({ gameDependencies, gameFilterFn }: Game
 
             <AllGamesList
                 games={filteredGames}
-                onGameSaved={(game) => {
-                    const sessionToken = ""; 
-                    toggleSavedGame(game, sessionToken);
-                }}
-                onGameDeleted={(id) => {
-                    const sessionToken = ""; 
-                    deleteGame(id, sessionToken);
-                }}
+                onGameSaved={(game) => toggleSavedGame(game)}
+                onGameDeleted={(id) => deleteGame(id)}
             />
         </div>
     );
