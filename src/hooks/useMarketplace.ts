@@ -1,44 +1,68 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import * as svc from "../services/marketplace/marketplaceService";
-import type { ListingDto } from "../apis/marketplace/marketplaceRepo";
+import { useEffect, useState } from "react";
+import { useAuth } from "@clerk/clerk-react";
+import * as marketplaceService from "../services/marketplace/marketplaceService";
+import type { Listing } from "../components/common/types/marketplace";
 
-export function useMarketplace(searchQuery?: string) {
-  const [listings, setListings] = useState<ListingDto[]>([]);
+export function useMarketplace(searchQuery: string) {
+  const { isSignedIn, getToken } = useAuth();
+
+  const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const load = useCallback(async (q?: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await svc.fetchListings(q);
-      setListings(data);
-    } catch (e) {
-      setError((e as Error).message || "Failed to fetch");
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    const load = async () => {
+      if (!isSignedIn) {
+        setListings([]);
+        setError("You must be signed in to view listings.");
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const token = await getToken();
+        const data = await marketplaceService.fetchListings(
+          searchQuery,
+          token ?? undefined
+        );
+        setListings(data);
+        setError(null);
+      } catch {
+        setError("Failed to fetch listings.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void load();
+  }, [searchQuery, isSignedIn, getToken]);
+
+  const add = async (input: {
+    title: string;
+    platform: string;
+    price: number;
+    note?: string;
+  }) => {
+    if (!isSignedIn) {
+      setError("You must be signed in to add a listing.");
+      return;
     }
-  }, []);
 
-  useEffect(() => { load(searchQuery); }, [load, searchQuery]);
-
-  const filtered = useMemo(() => {
-    const q = (searchQuery || "").trim().toLowerCase();
-    if (!q) return listings;
-    return listings.filter(l =>
-      [l.title, l.platform, String(l.price), l.note ?? ""].join(" ").toLowerCase().includes(q)
-    );
-  }, [listings, searchQuery]);
-
-  const add = async (input: Omit<ListingDto, "id" | "dateCreated">) => {
-    const created = await svc.addListing(input);
-    setListings(prev => [created, ...prev]);
+    try {
+      const token = await getToken();
+      const created = await marketplaceService.createListing(
+        input,
+        token ?? undefined
+      );
+      setListings((prev) => [created, ...prev]);
+      setError(null);
+    } catch {
+      setError("Failed to create listing.");
+    }
   };
 
-  const remove = async (id: string) => {
-    await svc.removeListing(id);
-    setListings(prev => prev.filter(l => l.id !== id));
+  const remove = async (_id: string) => {
   };
 
-  return { listings, filtered, loading, error, add, remove, reload: () => load(searchQuery) };
+  return { listings, loading, error, add, remove };
 }
