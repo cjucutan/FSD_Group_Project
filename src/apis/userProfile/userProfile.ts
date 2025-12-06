@@ -43,12 +43,13 @@ export async function createUser(user: User){
   return json.data;
 }
 
-export async function updateUser(user: User){
+export async function updateUser(user: User, sessionToken: string){
     const response: Response = await fetch(`${BASE_URL}/users/${user.id}`, {
     method: "PUT",
     body: JSON.stringify({ ...user }),
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionToken}`
     },
   });
 
@@ -60,9 +61,12 @@ export async function updateUser(user: User){
   return json.data;
 }
 
-export async function deleteUser(userId: string): Promise<void>{
+export async function deleteUser(userId: string, sessionToken: string): Promise<void>{
     const response: Response = await fetch(`${BASE_URL}/users/${userId}`, {
-    method: "DELETE"
+    method: "DELETE",
+    headers: {
+      "Authorization": `Bearer ${sessionToken}`,
+    },
   });
 
   if (!response.ok) {
