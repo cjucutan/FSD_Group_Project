@@ -2,7 +2,6 @@ import './App.css'
 import { HomePage } from './components/pages/Home'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import { Layout } from './components/common/Layouts/Layout'
-import { useState } from 'react'
 import DisplayAllGames from './components/pages/allGames'
 import SavedGames from './components/pages/savedGames'
 import { CommunityHub } from './components/common/Community_Hub/CommunityHub'
@@ -14,11 +13,6 @@ import EditGamePage from './components/pages/editGamePage';
 
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-    const handleLogin = () => {
-        setIsLoggedIn(true)
-    }
 
     return (
       <BrowserRouter>
@@ -26,10 +20,7 @@ function App() {
           <Route 
             path="/" 
             element={
-              <Layout 
-                isLoggedIn={isLoggedIn} 
-                onLogin={handleLogin} 
-              />
+              <Layout />
             }
           >
           <Route 

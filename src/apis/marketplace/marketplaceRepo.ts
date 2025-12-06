@@ -11,11 +11,8 @@ export type ListingDto = {
 
 export type CreateListingDto = Omit<ListingDto, "id" | "dateCreated">;
 
-export async function getAllListings(q?: string): Promise<ListingDto[]> {
-  const url = new URL(`${BASE}/marketplace/listings`);
-  if (q && q.trim()) url.searchParams.set("q", q.trim());
-
-  const res = await fetch(url.toString());
+export async function getAllListings(): Promise<ListingDto[]> {
+  const res = await fetch(`${BASE}/marketplace/listings`);
   if (!res.ok) throw new Error("Failed to fetch listings");
   const json = await res.json();
   return json.data as ListingDto[];
@@ -24,15 +21,21 @@ export async function getAllListings(q?: string): Promise<ListingDto[]> {
 export async function createListing(payload: CreateListingDto): Promise<ListingDto> {
   const res = await fetch(`${BASE}/marketplace/listings/create`, {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
+
   if (!res.ok) throw new Error("Failed to create listing");
   const json = await res.json();
   return json.data as ListingDto;
 }
 
 export async function deleteListing(id: string): Promise<void> {
-  const res = await fetch(`${BASE}/marketplace/listings/delete/${id}`, { method: "DELETE" });
+  const res = await fetch(`${BASE}/marketplace/listings/delete/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
   if (!res.ok) throw new Error("Failed to delete listing");
 }
