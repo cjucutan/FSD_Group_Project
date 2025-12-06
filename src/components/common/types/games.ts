@@ -6,10 +6,12 @@ export interface Game {
   gameName: string;
   image: string;
   detail: string;
-  genre: Genre;
+  genre: keyof typeof Genre;
   ratings: string;
-  platform: Platform;
+  platform: keyof typeof Platform;
   developer: string;
   user: string;
+  userId: string;
+  price: string;
   saved?: boolean;
 }

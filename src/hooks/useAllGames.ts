@@ -2,8 +2,10 @@ import { useEffect, useState, useCallback } from 'react';
 import * as gamesService from '../services/allGames/allGamesService';
 import type { Game } from '../components/common/types/games';
 import { toast } from 'react-toastify';
+import { useAuth } from '@clerk/clerk-react';
 
 export function useAllGames(dependencies: unknown[] = []) {
+    const { getToken } = useAuth();
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState<string | null>(null);
 
@@ -20,10 +22,12 @@ export function useAllGames(dependencies: unknown[] = []) {
 
     // --- Toggle saved on backend ---
     const toggleSavedGame = useCallback(
-    async (game: Game, sessionToken: string) => {
+    async (game: Game) => {
         try {
+            const token = await getToken();
+            if (!token) throw new Error("Missing Clerk token");
             // Backend returns FULL updated game list
-            const updatedGames = await gamesService.toggleSavedGame(game, sessionToken);
+            const updatedGames = await gamesService.toggleSavedGame(game, token);
 
             // Since backend returns Game[], just replace it
             setGames(updatedGames);
@@ -50,14 +54,17 @@ export function useAllGames(dependencies: unknown[] = []) {
             setError(errorObject?.message || "Failed to update saved status.");
         }
     },
-    []
+    [getToken]
 );
 
     // --- Delete a game on backend ---
     const deleteGame = useCallback(
-        async (id: string, sessionToken: string) => {
+        async (id: string) => {
             try {
-                await gamesService.deleteGame(id, sessionToken);
+                const token = await getToken(); 
+                if (!token) throw new Error("Missing Clerk token");
+
+                await gamesService.deleteGame(id, token);
                 setGames((prev) => prev.filter((g) => g.id !== id)); // remove from local state
                 toast.success("Game deleted successfully!", {
                     position: "bottom-center",
@@ -76,7 +83,7 @@ export function useAllGames(dependencies: unknown[] = []) {
                 });
             }
         },
-        []
+        [getToken]
     );
 
     // --- Load games on mount or dependency change ---
