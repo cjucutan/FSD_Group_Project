@@ -4,7 +4,7 @@ import { useAllGames } from '../../hooks/useAllGames';
 import { useFilteredGames } from '../../hooks/useFilteredGames';
 
 export default function SavedGames() {
-    const { games, toggleSavedGame } = useAllGames([]);
+    const { games, toggleSavedGame, deleteGame } = useAllGames([]);
 
     const { filteredGames } = useFilteredGames(
         games,
@@ -30,8 +30,15 @@ export default function SavedGames() {
                 <div className="p-16">
                     <AllGamesList
                         games={filteredGames}
-                        onGameSaved={toggleSavedGame}
-                    />
+                        onGameSaved={(game) => {
+                        const sessionToken = ""; 
+                        toggleSavedGame(game, sessionToken);
+                    }}
+                    onGameDeleted={(id) => {
+                        const sessionToken = ""; 
+                        deleteGame(id, sessionToken);
+                    }}
+                />
                 </div>
             )}
         </div>

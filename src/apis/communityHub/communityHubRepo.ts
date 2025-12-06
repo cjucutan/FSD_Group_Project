@@ -16,8 +16,12 @@ export async function getPosts() {
   return json.data;
 }
 
-export async function getPostById(postID: string) {
-  const response: Response = await fetch(`${BASE_URL}/posts/${postID}`);
+export async function getPostById(postID: string, sessionToken: string): Promise<Post> {
+  const response: Response = await fetch(`${BASE_URL}/posts/${postID}`, {
+    headers: {
+    Authorization: `Bearer ${sessionToken}`,
+    },
+  });
 
   if (!response.ok) {
     throw new Error(`Failed to get post with id ${postID}`);
@@ -27,12 +31,13 @@ export async function getPostById(postID: string) {
   return json.data;
 }
 
-export async function createPost(post: Post) {
+export async function createPost(post: Post, sessionToken: string) {
   const response: Response = await fetch(`${BASE_URL}/posts/create`, {
     method: "POST",
     body: JSON.stringify({...post}),
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionToken}`,
     },
   });
 
@@ -44,12 +49,13 @@ export async function createPost(post: Post) {
   return json.data;
 }
 
-export async function updatePost(post: Post) {
+export async function updatePost(post: Post, sessionToken: string) {
   const response: Response = await fetch(`${BASE_URL}/posts/update/${post.postID}`, {
     method: "PUT",
     body: JSON.stringify({ ...post }),
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionToken}`,
     },
   });
 
@@ -61,9 +67,12 @@ export async function updatePost(post: Post) {
   return json.data;
 }
 
-export async function deletePost(postID: string): Promise<void> {
+export async function deletePost(postID: string, sessionToken: string): Promise<void> {
   const response: Response = await fetch(`${BASE_URL}/posts/delete/${postID}`, {
-    method: "DELETE"
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${sessionToken}`
+    }
   });
 
   if (!response.ok) {

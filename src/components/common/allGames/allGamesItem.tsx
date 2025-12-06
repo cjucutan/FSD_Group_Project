@@ -1,4 +1,4 @@
-import { Edit, Star } from "lucide-react";
+import { Edit, Star, Trash } from "lucide-react";
 import type { Game } from "../types/games";
 import AllGamesCard from "./allGamesCard";
 import { Button } from "../ui/Button";
@@ -8,9 +8,10 @@ import { useNavigate } from "react-router";
 interface allGamesItemProps {
   game: Game;
   onGameSaved: (game: Game) => void;
+  onGameDeleted: (gameId: string) => void;
 }
 
-export default function AllGamesItem({ game, onGameSaved }: allGamesItemProps) {
+export default function AllGamesItem({ game, onGameSaved, onGameDeleted }: allGamesItemProps) {
   let navigate = useNavigate();
   
   return (
@@ -25,6 +26,11 @@ export default function AllGamesItem({ game, onGameSaved }: allGamesItemProps) {
               <Edit />
             </Button>
             <Button onClick={() => onGameSaved(game)}>{game.saved ? <Star fill="orange" /> : <Star />}</Button>
+            <Button
+              onClick={() => onGameDeleted(game.id)}
+              className="text-red-600 hover:bg-red-100">
+              <Trash />
+            </Button>
           </div>
         </div>
         <div className="flex mb-4">

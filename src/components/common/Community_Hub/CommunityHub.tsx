@@ -3,11 +3,13 @@ import { Button } from "../ui/Button";
 import { DiscussionForm } from "./DiscussionForm/DiscussionForm";
 import { usePosts } from "../../../hooks/usePosts";
 import { useAllGames } from "../../../hooks/useAllGames";
+import { useAuth } from "@clerk/clerk-react";
 
 
 export function CommunityHub() {
   const { groupedPosts, deletePost, fetchPosts } = usePosts([]);
   const { games } = useAllGames([]);
+  const { isSignedIn } = useAuth();
 
 
   return (
@@ -30,11 +32,16 @@ export function CommunityHub() {
                 <ul className="space-y-4 pl-6">
                   {game.posts.map((post) => (
                     <li key={post.postID} className="relative">
-                      <Button
-                        onClick={() => deletePost(post.postID!)}
-                        className="absolute bottom-4 right-4 bg-blue-900 hover:bg-indigo-950 text-white p-3 rounded-lg">
-                        Delete
-                      </Button>
+                      {isSignedIn ? (
+                        <Button
+                          onClick={() => deletePost(post.postID!)}
+                          className="absolute bottom-4 right-4 bg-blue-900 hover:bg-indigo-950 text-white p-3 rounded-lg"
+                        >
+                          Delete
+                        </Button>
+                      ) : (
+                        <></>
+                      )}
                       <NavLink
                         to={`/CommunityHub/${game.gameID}/${post.postID}`}
                         end

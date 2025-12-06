@@ -1,42 +1,35 @@
 import { NavLink } from "react-router";
+import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from '@clerk/clerk-react';
 
+export default function Nav() {
+    const { isSignedIn } = useAuth();
 
-interface NavProps {
-    isLoggedIn: boolean;
-    onLogin: () => void;
-}
-
-
-function Nav({ isLoggedIn, onLogin }: NavProps) {
     return (
         <div className="flex justify-center p-8">
-            <nav>
-                <span>
-                    <a href="allGames" className="pr-4">All Games </a>
-                </span>
-                <span>
-                    <a href="savedGames" className="pr-4">Saved Games </a>
-                </span>
-            </nav>
-            <nav>
-                <NavLink to="/CommunityHub" className="pr-3"end>
-                    Community Hub
-                </NavLink>
+            {isSignedIn ? (
+                <>
+                    <nav className="mr-4">
+                        <NavLink to="/allGames" className="pr-4">All Games</NavLink>
+                        <NavLink to="/savedGames" className="pr-4">Saved Games</NavLink>
+                    </nav>
 
-                <span>
-                    <NavLink to="/marketplace" className="pr-4" end>
-                        Cartridge Cart
-                    </NavLink>
-                </span>
-
-                <span>
-                    <a href="userProfile" className="pr-4">Profile </a>
-                </span>
-                <a onClick={() => onLogin()}>{isLoggedIn ? "Logout" : "Login / Signup"} </a>
-            </nav>
+                    <nav className="mr-4">
+                        <NavLink to="/CommunityHub" className="pr-3" end>Community Hub</NavLink>
+                        <NavLink to="/marketplace" className="pr-4" end>Cartridge Cart</NavLink>
+                        <NavLink to="/userProfile" className="pr-4">Profile</NavLink>
+                    </nav>
+                </>
+            ) : (
+                <></>
+            )}
+            <span>
+                <SignedOut>
+                    <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                    <UserButton />
+                </SignedIn>
+            </span>
         </div>
-
-    )
-};
-
-export default Nav;
+    );
+}
