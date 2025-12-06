@@ -24,7 +24,7 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting, onS
                 <input
                     type="text"
                     name="gameName"
-                    value={gameData.gameName}
+                    value={gameData.gameName ?? ""}
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
@@ -38,7 +38,7 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting, onS
                 <input
                     type="text"
                     name="image"
-                    value={gameData.image}
+                    value={gameData.image ?? ""}
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
@@ -51,7 +51,7 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting, onS
                 <label className="text-white font-medium">Game Detail / Description</label>
                 <textarea
                     name="detail"
-                    value={gameData.detail}
+                    value={gameData.detail ?? ""}
                     onChange={onChange}
                     rows={3}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
@@ -65,7 +65,7 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting, onS
                 <label className="text-white font-medium">Game Genre</label>
                 <select
                     name="genre"
-                    value={gameData.genre}
+                    value={gameData.genre ?? ""}
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 >
@@ -83,7 +83,7 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting, onS
                 <input
                     type="text"
                     name="ratings"
-                    value={gameData.ratings}
+                    value={gameData.ratings ?? ""}
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
@@ -96,7 +96,7 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting, onS
                 <label className="text-white font-medium">Game Platform</label>
                 <select
                     name="platform"
-                    value={gameData.platform}
+                    value={gameData.platform ?? ""}
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 >
@@ -114,7 +114,7 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting, onS
                 <input
                     type="text"
                     name="developer"
-                    value={gameData.developer}
+                    value={gameData.developer ?? ""}
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
@@ -124,18 +124,53 @@ export default function GameForm({ gameData, onChange, errors, isSubmitting, onS
             </div>
 
             <div className="flex flex-col gap-1">
-                <label className="text-white font-medium">Game User</label>
+                <label className="text-white font-medium">Game Username</label>
                 <input
                     type="text"
                     name="user"
-                    value={gameData.user}
+                    value={gameData.user ?? ""}
                     onChange={onChange}
                     className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
-                {errors.has("user") && (
+                {errors.has("username") && (
                     <span className="text-red-500 text-sm mt-1 block">{errors.get("user")}</span>
                 )}
             </div>
+
+            <div className="flex flex-col gap-1">
+                <label className="text-white font-medium">Game UserID</label>
+                <input
+                    type="text"
+                    name="userID"
+                    value={gameData.userId ?? ""}
+                    onChange={onChange}
+                    className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
+                />
+                {errors.has("userId") && (
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("user")}</span>
+                )}
+            </div>
+
+            <div className="flex flex-col gap-1">
+                <label className="text-white font-medium">Game Price</label>
+                <input
+                    type="text"
+                    name="price"
+                    value={gameData.price ?? ""}
+                    onChange={onChange}
+                    className="p-2 rounded bg-grey-700 text-white border border-grey-400 focus:outline-none focus:ring-2 focus:ring-blue-900"
+                />
+                {errors.has("price") && (
+                    <span className="text-red-500 text-sm mt-1 block">{errors.get("user")}</span>
+                )}
+            </div>
+
+                <input
+                    type="hidden"
+                    name="saved"
+                    value={gameData.saved ? "true" : "false"}
+                />
+
 
             {/* Disabled submit styling */}
             <button

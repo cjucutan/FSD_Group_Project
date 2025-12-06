@@ -42,7 +42,15 @@ export function useValidateGame() {
         }
 
         if (!game.user?.trim()) {
-            newErrors.set('user', 'User cannot be blank');
+            newErrors.set('user', 'Username cannot be blank');
+        }
+
+        if (!game.userId?.trim()) {
+            newErrors.set('userId', 'UserId cannot be blank');
+        }
+
+        if (!game.price?.trim()) {
+            newErrors.set('price', 'Price cannot be blank');
         }
 
         setErrors(newErrors);
