@@ -1,15 +1,9 @@
-export type MarketCondition = "New" | "Used" | "Digital";
-export type MarketPlatform = "PC" | "PS5" | "Xbox" | "Switch" | "Any";
 
-export interface MarketplaceItem {
+export interface Listing {
   id: string;
   title: string;
-  platform: MarketPlatform;
+  platform: string; 
   price: number;
-  condition: MarketCondition;
-  seller: string;
-  image: string;
-  description: string;
-  saved?: boolean;
-  createdAt: string;
+  note?: string;
+  dateCreated?: string; 
 }
