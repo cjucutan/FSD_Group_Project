@@ -7,30 +7,34 @@ import { Button } from "../ui/Button";
 import { Input } from "../ui/Input";
 import { Textarea } from "../ui/Textarea";
 import { useUserProfile } from "../../../hooks/useUserProfile";
+import * as UserService from "../../../services/userProfile/userProfileService";
+import { useAuth } from "@clerk/clerk-react";
+
 
 export function Profile(){
 
-    const {users} = useUserProfile()
+    const { currentUser } = useUserProfile();
+    const { getToken } = useAuth()
     const [showUpdate, setShowUpdate] = useState(false);
-    const [user, setUser] = useState<User | null>(null);
-    const {formData, handleChange, errors, setErrors, setFormData} = useFormState(user);
+    const {formData, handleChange, errors, setErrors, setFormData} = useFormState<User>({
+        id: "",
+        username: "",
+        email: "",
+        avatarUrl: "",
+        bio: "",
+        location: ""
+    });
 
     useEffect(() => {
-        if(users.length > 0){
-            setUser(users[0])
+        if(currentUser) {
+            setFormData({ ...currentUser});
         }
-    },[users]);
-
-    useEffect(() => {
-        if(user) {
-            setFormData(user);
-        }
-    },[user, setFormData])
+    },[currentUser, setFormData])
 
     function handleUpdate(){
         setShowUpdate(true);
     }
-    async function handleSaveProfile (e){
+    async function handleSaveProfile (e: React.FormEvent){
         e.preventDefault();
         
         const validationErrors = await validateUser(formData);
@@ -40,11 +44,38 @@ export function Profile(){
             return;
         }
         
-        setUser(formData as User);
-        setShowUpdate(false);
+        try{
+            const sessionToken = await getToken();
+            if (sessionToken){
+                await UserService.updateUser(formData, sessionToken);
+                setShowUpdate(false);
+            }
+        } catch(error){
+            console.error("User cannot be updated", error)
+        }
+    }
+
+    async function handleDeleteProfile(){
+        try{
+            const sessionToken = await getToken()
+            if (!sessionToken){
+                return;
+            }
+            if (formData.id !== currentUser?.id){
+                console.error("Cannot delete user, IDs do not match");
+                return;
+            }
+
+            await UserService.deleteUser(formData.id, sessionToken)
+            setShowUpdate(false);
+            alert("User deleted")
+        }catch(error){
+            console.error("User cannot be deleted", error);
+            alert("User deletion failed")
+        }
     }
     
-    if(!user){
+    if(!currentUser){
         return <div>Loading your profile...</div>
     }
 
@@ -54,12 +85,12 @@ export function Profile(){
             <div className="flex flex-col justify-center rounded-2xl border bg-white p-4 bg-linear-to-br 
                             from-sky-500 via-blue-900 to-indigo-950 text-white max-w-md mx-auto">
                 <div className="flex items-center justify-center">
-                <img className="object-cover rounded-full aspect-square w-30 h-30"src={user.avatarUrl ? user.avatarUrl: img1} alt={`${user.username}'s avatar`}/>
+                <img className="object-cover rounded-full aspect-square w-30 h-30"src={formData.avatarUrl ? formData.avatarUrl: img1} alt={`${formData.username}'s avatar`}/>
                 </div>
-                <p className="flex justify-center my-4">USERNAME: {user.username}</p>
-                <p className="flex justify-center my-4">EMAIL: {user.email}</p>
-                <p className="flex justify-center my-4">AVATARURL: {user.avatarUrl}</p>
-                <p className="flex justify-center my-4">BIO: {user.bio}</p>
+                <p className="flex justify-center my-4">USERNAME: {formData.username}</p>
+                <p className="flex justify-center my-4">EMAIL: {formData.email}</p>
+                <p className="flex justify-center my-4">AVATARURL: {formData.avatarUrl}</p>
+                <p className="flex justify-center my-4">BIO: {formData.bio}</p>
             </div>
             <div className="flex justify-center">
                 <Button 
@@ -92,7 +123,7 @@ export function Profile(){
                         <label>
                             Email:
                             <Input type="email" 
-                                   value={formData.email} 
+                                   value={formData.email ?? ""} 
                                    placeholder="Enter new email" 
                                    onChange={(e) => handleChange("email", e.target.value)} 
                                    className="text-black border rounded p-1 my-2 w-full"
@@ -102,7 +133,7 @@ export function Profile(){
                         <label>
                             AvatarURL: 
                             <Input type="url" 
-                                   value={formData.avatarUrl}
+                                   value={formData.avatarUrl ?? ""}
                                    placeholder="Enter new url" 
                                    onChange={(e) => handleChange("avatarUrl", e.target.value)} 
                                    className="text-black border rounded p-1 my-2 w-full"
@@ -110,7 +141,7 @@ export function Profile(){
                         </label>
                         <label>
                             Bio: 
-                            <Textarea value={formData.bio} 
+                            <Textarea value={formData.bio ?? ""} 
                                       placeholder="Enter new bio" 
                                       onChange={(e) => handleChange("bio", e.target.value)} 
                                       className="text-black border rounded p-1 my-2 w-full"
@@ -126,6 +157,17 @@ export function Profile(){
                                     <div className="flex h-full w-full items-center justify-center 
                                     bg-gray-900 rounded-full hover:bg-blue-500">
                                         Save Profile
+                                    </div>
+                            </Button>
+                            <Button 
+                                className="flex justify-center align-center my-2 h-10 w-32 rounded-2xl 
+                                        bg-linear-to-br from-sky-950 via-blue-900 to-indigo-500 text-white
+                                        hover:bg-linear-blue-900" 
+                                type="button" 
+                                onClick={handleDeleteProfile}>
+                                    <div className="flex h-full w-full items-center justify-center 
+                                    bg-gray-900 rounded-full hover:bg-blue-500">
+                                        Delete Profile
                                     </div>
                             </Button>
                         </div>

@@ -83,6 +83,7 @@ export function useDiscussionForm() {
                 };
                 let toastMessage = `Successfully created a new discussion post ${discussion.postTitle}!`;
                 let postId = discussion.postID;
+                console.log(postId)
                 if (formMode == "create") {
                     const createNewDiscussion = await DiscussionService.createNewPost(discussion, sessionToken)
                     if (createNewDiscussion) {

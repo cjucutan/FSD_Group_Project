@@ -1,5 +1,4 @@
 import { userData } from '../../../../src/components/data/user_data';
-import img1 from '../../data/images/noprofile.jpg';
 import type { User } from '../types/users';
 
 const users: User[] = userData;
@@ -11,7 +10,7 @@ export default function UserProfileSection() {
             {users.map((user) => (
             <div key={user.id} className="flex flex-col items-center space-y-4">
             <h2 className="text-4xl font-bold">{user.username}</h2>
-            <img src={user.avatarUrl} height="300" width="300"alt={`${user.username}'s avatar`}/>
+            <img src={user.avatarUrl ?? ""} height="300" width="300"alt={`${user.username}'s avatar`}/>
             <p>{user.bio}</p>
             </div>
         ))}

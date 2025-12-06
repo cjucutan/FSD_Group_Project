@@ -43,7 +43,7 @@ export default function AllGamesItem({ game, onGameSaved, onGameDeleted }: allGa
 
         <div className="flex gap-4">
           <AllGamesCard
-            data={[game.genre, game.ratings, game.detail, game.platform, game.developer, game.user]}
+            data={[game.genre, game.ratings, game.detail, game.platform, game.developer, game.user, game.userId, game.price]}
             title={game.gameName}
           />
         </div>

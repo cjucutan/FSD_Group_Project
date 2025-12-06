@@ -89,7 +89,7 @@ export async function updateSavedGame(id: string, saved: boolean, sessionToken: 
 }
 
 export async function deleteGame(id: string, sessionToken: string): Promise<void> {
-    const deleteResponse: Response = await fetch(`${BASE_URL}/games/${id}`, {
+    const deleteResponse: Response = await fetch(`${BASE_URL}/games/delete/${id}`, {
         method: 'DELETE',
         headers: {
             Authorization: `Bearer ${sessionToken}`
