@@ -30,15 +30,9 @@ export default function SavedGames() {
                 <div className="p-16">
                     <AllGamesList
                         games={filteredGames}
-                        onGameSaved={(game) => {
-                        const sessionToken = ""; 
-                        toggleSavedGame(game, sessionToken);
-                    }}
-                    onGameDeleted={(id) => {
-                        const sessionToken = ""; 
-                        deleteGame(id, sessionToken);
-                    }}
-                />
+                        onGameSaved={(game) => toggleSavedGame(game)}
+                        onGameDeleted={(id) => deleteGame(id)}
+                    />
                 </div>
             )}
         </div>
